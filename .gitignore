@@ -1,1 +1,4 @@
 .DS_Store
+vendor/*
+sample_data/*
+composer.lock

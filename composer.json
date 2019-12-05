@@ -1,0 +1,8 @@
+{
+    "autoload": {
+        "psr-4": {"NodesAndEdges\\": "src/"}
+    },
+    "require": {
+        "symfony/console": "^4.4"
+    }
+}

@@ -1,7 +1,11 @@
 <?php
 
+namespace NodesAndEdges;
+
+use InvalidArgumentException;
+
 /**
- *
+ * Class Graph
  */
 class Graph
 {
@@ -244,11 +248,5 @@ class Graph
                 $vertices-1
             ));
         }
-    }
-
-    public static function main($file)
-    {
-        $graph = static::fromFile($file);
-        print $graph;
     }
 }
