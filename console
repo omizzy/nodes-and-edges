@@ -4,10 +4,11 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
 use NodesAndEdges\Command\PrintGraphCommand;
-
+use NodesAndEdges\Command\GraphInfoCommand;
 $application = new Application();
 
 $application->add(new PrintGraphCommand());
+$application->add(new GraphInfoCommand());
 
 $application->run();
 
