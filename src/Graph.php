@@ -234,10 +234,12 @@ class Graph
     }
 
     /**
+     * Utility class
+     *
      * @param int $vertex
      * @param int $vertices
      */
-    private static function validateVertex(int $vertex, int $vertices)
+    public static function validateVertex(int $vertex, int $vertices)
     {
         // run the check
         if ($vertex < 0 || $vertex >= $vertices) {

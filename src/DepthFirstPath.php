@@ -2,24 +2,28 @@
 
 namespace NodesAndEdges;
 
+use NodesAndEdges\Graph;
+
 /**
+ * Class DepthFirstPaths
  */
-class DepthFirstSearch
+class DepthFirstPath
 {
     /**
      * @var bool[]
      */
     private $marked;
 
+
+    /**
+     * @var int[]
+     */
+    private $edgeTo;
+
     /**
      * @var int
      */
-    private $count;
-
-    /**
-     * @var Graph
-     */
-    private $graph;
+    private $sourceVertex;
 
     /**
      * @var Graph   $graph
@@ -31,6 +35,8 @@ class DepthFirstSearch
         Graph::validateVertex($sourceVertex, $graph->getVertices());
         // set
         $this->graph = $graph;
+        // set
+        $this->sourceVertex = $sourceVertex;
         // execute DFS logic
         $this->dfs($sourceVertex);
     }
@@ -41,45 +47,43 @@ class DepthFirstSearch
      * @var int     $vertex
      */
     private function dfs(int $vertex) {
-        // bump up
-        $this->count++;
         // set this vertex as marked
         $this->marked[$vertex] = true;
         // iterate over the the vertices incident to $vertex
         foreach ($this->graph->adjacent($vertex) as $w) {
             // if we have not visited this vertex yet..
             if (!$this->marked[$w]) {
+                // set
+                $this->edgeTo[$w] = $vertex;
                 // lets visit
                 $this->dfs($w);
             }
         }
     }
 
-    /**
-     * Is there a path between the source vertex and vertex v
-     * @param int       $vertex
-     * @return bool     true if there is a path, false otherwise
-     * @throws InvalidArgumentException unless 0 <= $vertex < $vertices
-     */
-    public function marked(int $vertex) {
-        // convinience var
-        $vertices = $this->graph->getVertices();
+    public function hasPathTo(int $vertex)
+    {
         // validate this vertex in the context of the given graph
-        Graph::validateVertex($vertex, $vertices);
-        // return the flag
+        Graph::validateVertex($vertex, $this->graph->getVertices());
+         // return 
         return $this->marked[$vertex];
     }
 
 
-    /**
-     * Returns the number of vertices connected to $sourceVertex
-     * 
-     * @return int  the number of vertices connected to $sourceVertex
-     */
-    public function count()
+    public function pathTo(int $vertex)
     {
-        return $this->count;
+        // validate this vertex in the context of the given graph
+        Graph::validateVertex($vertex, $this->graph->getVertices());
+        // check if there is a path
+        if (!$this->hasPathTo($vertex)) {
+            // empty case
+            return null;
+        }
+        $path = [];
+        for ($x = $vertex; $x != $this->sourceVertex; $x = $this->edgeTo[$x]) {
+            array_unshift($path, $x);
+        }
+        array_unshift($path, $this->sourceVertex);
+        return $path;
     }
-
-
 }

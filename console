@@ -5,10 +5,16 @@ require __DIR__ . '/vendor/autoload.php';
 use Symfony\Component\Console\Application;
 use NodesAndEdges\Command\PrintGraphCommand;
 use NodesAndEdges\Command\GraphInfoCommand;
+use NodesAndEdges\Command\DFSCommand;
+use NodesAndEdges\Command\DFSPathCommand;
+
 $application = new Application();
 
 $application->add(new PrintGraphCommand());
 $application->add(new GraphInfoCommand());
+$application->add(new DFSCommand());
+$application->add(new DFSPathCommand());
+
 
 $application->run();
 
