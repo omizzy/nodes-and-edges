@@ -2,3 +2,4 @@
 vendor/*
 sample_data/*
 composer.lock
+out/*
