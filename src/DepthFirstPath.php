@@ -33,6 +33,8 @@ class DepthFirstPath
     {
         // validate this vertex in the context of the given graph
         Graph::validateVertex($sourceVertex, $graph->getVertices());
+        // init
+        $this->marked = [];
         // set
         $this->graph = $graph;
         // set
@@ -70,6 +72,10 @@ class DepthFirstPath
     }
 
 
+    /**
+     * @param int $vertex
+     * @return array
+     */
     public function pathTo(int $vertex)
     {
         // validate this vertex in the context of the given graph
@@ -79,11 +85,15 @@ class DepthFirstPath
             // empty case
             return null;
         }
+        // init
         $path = [];
+        // pop into the stack
         for ($x = $vertex; $x != $this->sourceVertex; $x = $this->edgeTo[$x]) {
             array_unshift($path, $x);
         }
+        // pop the source into the stack
         array_unshift($path, $this->sourceVertex);
+        // return the stack
         return $path;
     }
 }
