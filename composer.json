@@ -1,5 +1,8 @@
 {
+    "name": "omizzy/nodes-and-edges",
+    "description": "Node-edge graphs tools",
     "autoload": {
+
         "psr-4": {"NodesAndEdges\\": "src/"}
     },
     "require": {
