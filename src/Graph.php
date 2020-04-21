@@ -233,6 +233,61 @@ class Graph
         return $graph;
     }
 
+    public static function fromString(string $graph)
+    {
+        $lines = explode("\n", $graph);
+
+        // open the stream for reading
+        $vertices = (int)filter_var(
+            $lines[0],
+            FILTER_SANITIZE_NUMBER_INT
+        );
+        // sanity check
+        if ($vertices < 0) {
+            // bad state
+            throw new InvalidArgumentException(
+                'number of vertices in a Graph must be nonnegative'
+            );
+        }
+        // instantiate a new graph
+        $graph = new Graph($vertices);
+        // read in the amount of edges in the stream
+        $edges = (int)filter_var(
+            $lines[1],
+            FILTER_SANITIZE_NUMBER_INT
+        );
+        // sanity check
+        if ($edges < 0) {
+            // bad state
+            throw new InvalidArgumentException(
+                'number of edges in a Graph must be nonnegative'
+            );
+        }
+        // read in the edges
+        for ($i = 0; $i < $edges; $i++) {
+            // read the line and parse
+            $edge = explode(' ', $lines[$i+2]);
+            // get v
+            $v = (int)filter_var(
+                $edge[0],
+                FILTER_SANITIZE_NUMBER_INT
+            );
+            // get w
+            $w = (int)filter_var(
+                $edge[1],
+                FILTER_SANITIZE_NUMBER_INT
+            );
+            // validate it
+            static::validateVertex($v, $vertices);
+            // validate it
+            static::validateVertex($w, $vertices);
+            // add to the graph
+            $graph->addEdge($v, $w);
+        }
+        // return the built graph
+        return $graph;
+    }
+
     /**
      * Utility class
      *
