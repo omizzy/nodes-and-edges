@@ -31,6 +31,8 @@ class DepthFirstSearch
         Graph::validateVertex($sourceVertex, $graph->getVertices());
         // set
         $this->graph = $graph;
+        // set
+        $this->marked = array_fill(0, $graph->getVertices(), false);
         // execute DFS logic
         $this->dfs($sourceVertex);
     }
