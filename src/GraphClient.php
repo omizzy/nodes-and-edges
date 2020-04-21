@@ -54,12 +54,14 @@ class GraphClient
     {
         // init
         $count = 0;
+        // get vertices
+        $vertices = $graph->getVertices();
         // iterate over the graph vertices
         for ($vertex = 0; $vertex < $vertices; $vertex++) {
             // iterate over the adjacent vertices
             foreach ($graph->adjacent($vertex) as $w) {
                 // is this vertex adjacent to itself
-                if ($v == $w) {
+                if ($vertex == $w) {
                     // yes, bump up
                     $count++;
                 }
