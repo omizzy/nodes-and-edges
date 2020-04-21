@@ -52,7 +52,7 @@ class BreadthFirstPath
          // validate this vertex in the context of the given graph
         Graph::validateVertex($sourceVertex, $graph->getVertices());
         // init
-        $this->marked = [];
+        $this->marked = array_fill(0, $graph->getVertices(), false);
         // init
         $this->distTo = [];
         // init
@@ -156,7 +156,7 @@ class BreadthFirstPath
     private function check()
     {
         // check that the distance of s = 0
-        if ($this->distTo[$this->source] != 0) {
+        if ($this->distTo[$this->sourceVertex] != 0) {
             // StdOut.println("distance of source " + s + " to itself = " + distTo[s]);
             return false;
         }

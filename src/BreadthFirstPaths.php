@@ -52,7 +52,7 @@ class BreadthFirstPaths
         // init
         $this->edgeTo = [];
         // init
-        $this->marked = [];
+        $this->marked = array_fill(0, $graph->getVertices(), false);
         // init
         $this->distTo = [];
         // set
