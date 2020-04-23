@@ -37,7 +37,7 @@ class Graph
         if ($vertices < 0) {
             // bad state
              throw new InvalidArgumentException(
-                'Number of vertices must be nonnegative'
+                'Number of vertices must be non-negative'
             );
         }
         // init
@@ -82,6 +82,8 @@ class Graph
 
     /**
      * Add edge v-w to this graph
+     * @param int $v
+     * @param int $w
      */
     public function addEdge(int $v, int $w)
     {
@@ -215,6 +217,8 @@ class Graph
 
     /**
      * Initializes a new graph that is a deep copy of $g
+     * @param Graph $g
+     * @return Graph
      */
     public static function fromGraph(Graph $g)
     {
@@ -227,10 +231,8 @@ class Graph
             // get the adjacent vertices
             $adjacencyList[$vertex] = $g->adjacent($vertex);
         }
-        // instantiate a new graph
-        $graph = new Graph($vertices, $adjacencyList);
         // return the new graph
-        return $graph;
+        return new Graph($vertices, $adjacencyList);
     }
 
     public static function fromString(string $graph)
@@ -260,7 +262,7 @@ class Graph
         if ($edges < 0) {
             // bad state
             throw new InvalidArgumentException(
-                'number of edges in a Graph must be nonnegative'
+                'number of edges in a Graph must be non-negative'
             );
         }
         // read in the edges
@@ -299,7 +301,7 @@ class Graph
         // run the check
         if ($vertex < 0 || $vertex >= $vertices) {
             // this vertex is not valid
-            throw new IllegalArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'vertex %d is not between 0 and %d',
                 $vertex,
                 $vertices-1

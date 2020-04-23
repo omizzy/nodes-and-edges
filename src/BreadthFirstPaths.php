@@ -2,14 +2,11 @@
 
 namespace NodesAndEdges;
 
-use NodesAndEdges\Graph;
-
 /**
- * Class BreadthFirstPath 
+ * Class BreadthFirstPaths
  */
 class BreadthFirstPaths
 {
-
     /**
      * @var int
      */
@@ -25,7 +22,6 @@ class BreadthFirstPaths
      * @var int[]
      */
     private $edgeTo;
-
 
     /**
      * distTo[v] = number of edges shortest s-v path
@@ -49,27 +45,28 @@ class BreadthFirstPaths
      */
     public function __construct(Graph $graph, array $sourceVertices)
     {
+        // iterate over the set of vertices
+        foreach ($sourceVertices as $vertex) {
+            // validate this vertex in the context of the given graph
+            Graph::validateVertex($vertex, $graph->getVertices());
+        }
         // init
-        $this->edgeTo = [];
+        $this->distTo = array_fill(0, $graph->getVertices(), static::INFINITY);
         // init
         $this->marked = array_fill(0, $graph->getVertices(), false);
         // init
-        $this->distTo = [];
+        $this->edgeTo = [];
         // set
         $this->sourceVertices = $sourceVertices;
         // set
         $this->graph = $graph;
-        // iterate over the set of vertices
-        foreach ($sourceVertices as $vertex) {
-             // validate this vertex in the context of the given graph
-            Graph::validateVertex($vertex, $graph->getVertices());
-            // init
-            $this->distTo[$vertex] = static::INFINITY;
-        }
         // invoke bfs
         $this->bfs();
     }
 
+    /**
+     *
+     */
     private function bfs()
     {
         // init
@@ -86,9 +83,11 @@ class BreadthFirstPaths
         // begin loop over the queue
         while (!empty($queue)) {
             // get the next vertex
-            $vertex = $queue->array_shift($queue);
+            $vertex = array_shift($queue);
+            // get the neighbors
+            $neighbors = $this->graph->adjacent($vertex);
             // iterate over the adjacent vertices
-            foreach ($this->graph->adjacent($vertex) as $w) {
+            foreach ($neighbors as $w) {
                 // process only if this vertex has been visited
                 if (!$this->marked[$w]) {
                     // $w can be reached via $vertex
@@ -128,6 +127,10 @@ class BreadthFirstPaths
         return $this->distTo[$vertex];
     }
 
+    /**
+     * @param int $vertex
+     * @return array|null
+     */
     public function pathTo(int $vertex)
     {
          // validate this vertex in the context of the given graph

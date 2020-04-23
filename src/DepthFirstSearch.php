@@ -2,6 +2,8 @@
 
 namespace NodesAndEdges;
 
+use InvalidArgumentException;
+
 /**
  */
 class DepthFirstSearch
@@ -64,14 +66,13 @@ class DepthFirstSearch
      * @throws InvalidArgumentException unless 0 <= $vertex < $vertices
      */
     public function marked(int $vertex) {
-        // convinience var
+        // convenience var
         $vertices = $this->graph->getVertices();
         // validate this vertex in the context of the given graph
         Graph::validateVertex($vertex, $vertices);
         // return the flag
         return $this->marked[$vertex];
     }
-
 
     /**
      * Returns the number of vertices connected to $sourceVertex
@@ -82,6 +83,4 @@ class DepthFirstSearch
     {
         return $this->count;
     }
-
-
 }

@@ -10,7 +10,8 @@ class GraphClient
     /**
      * Maximum degree
      *
-     * @param Graph $g
+     * @param Graph $graph
+     * @return int
      */
     public static function maxDegree(Graph $graph)
     {

@@ -2,18 +2,20 @@
 
 namespace NodesAndEdges;
 
-use NodesAndEdges\Graph;
-
 /**
  * Class DepthFirstPaths
  */
 class DepthFirstPath
 {
     /**
+     * @var Graph
+     */
+    private $graph;
+
+    /**
      * @var bool[]
      */
     private $marked;
-
 
     /**
      * @var int[]
@@ -48,7 +50,8 @@ class DepthFirstPath
      *
      * @var int     $vertex
      */
-    private function dfs(int $vertex) {
+    private function dfs(int $vertex)
+    {
         // set this vertex as marked
         $this->marked[$vertex] = true;
         // iterate over the the vertices incident to $vertex
@@ -63,6 +66,10 @@ class DepthFirstPath
         }
     }
 
+    /**
+     * @param int $vertex
+     * @return bool
+     */
     public function hasPathTo(int $vertex)
     {
         // validate this vertex in the context of the given graph

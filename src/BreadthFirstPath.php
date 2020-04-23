@@ -2,8 +2,6 @@
 
 namespace NodesAndEdges;
 
-use NodesAndEdges\Graph;
-
 /**
  * Class BreadthFirstPath 
  */
@@ -54,7 +52,9 @@ class BreadthFirstPath
         // init
         $this->marked = array_fill(0, $graph->getVertices(), false);
         // init
-        $this->distTo = [];
+        $this->distTo = array_fill(0, $graph->getVertices(), static::INFINITY);
+        // the distance to our source vertex is always zero
+        $this->distTo[$this->sourceVertex] = 0;
         // init
         $this->edgeTo = [];
         // set
@@ -67,27 +67,23 @@ class BreadthFirstPath
         assert($this->check());
     }
 
+    /**
+     *
+     */
     private function bfs()
     {
         // init
-        $queue = [];
-        // iterate over the set of vertices
-        for ($vertex = 0; $vertex < $this->graph->getVertices(); $vertex++) {
-            // init
-            $this->distTo[$vertex] = static::INFINITY;
-        }
-        // init
-        $this->distTo[$this->sourceVertex] = 0;
-        // init
         $this->marked[$this->sourceVertex] = true;
         // add beginning of queue
-        $queue[] = $this->sourceVertex;
+        $queue = [$this->sourceVertex];
         // start looping
         while (!empty($queue)) {
             // pop the next vertex
             $vertex = array_shift($queue);
             // get the adjacent vertices
-            foreach ($this->graph->adjacent($vertex) as $w) {
+            $neighbors = $this->graph->adjacent($vertex);
+            // iterate over them
+            foreach ($neighbors as $w) {
                 // check if this vertex has been visited
                 if (!$this->marked[$w]) {
                     // the edge to $w is indeed through $vertex
@@ -95,7 +91,7 @@ class BreadthFirstPath
                     // also compute the distance
                     $this->distTo[$w] = $this->distTo[$vertex] + 1;
                     // mark this vertex as visited
-                    !$this->marked[$w] = true;
+                    $this->marked[$w] = true;
                     // enqueue this vertex
                     $queue[] = $w;
                 }
@@ -140,7 +136,7 @@ class BreadthFirstPath
         $path = [];
         // iterate over the path
         for ($x = $vertex; $this->distTo[$x] != 0; $x = $this->edgeTo[$x]) {
-            // add this vertex 
+            // add this vertex
             array_unshift($path, $x);
         }
         // add final vertex
@@ -149,9 +145,7 @@ class BreadthFirstPath
         return $path;
     }
 
-
     /**
-     * todo: finish this up
      */
     private function check()
     {
@@ -194,7 +188,6 @@ class BreadthFirstPath
                 return false;
             }
         }
-
         return true;
     }
 }
