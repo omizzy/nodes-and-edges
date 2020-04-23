@@ -43,7 +43,7 @@ class BreadthFirstPath
 
     /**
      * @param Graph $graph
-     * @param int $sourceVertex
+     * @param int   $sourceVertex
      */
     public function __construct(Graph $graph, int $sourceVertex)
     {
@@ -100,7 +100,7 @@ class BreadthFirstPath
     }
 
     /**
-     * @param int $vertex
+     * @param int   $vertex
      * @return bool
      */
     public function hasPathTo(int $vertex)
@@ -112,7 +112,7 @@ class BreadthFirstPath
     }
 
     /**
-     * @param int $vertex
+     * @param int   $vertex
      * @return int
      */
     public function distTo(int $vertex)
@@ -123,6 +123,10 @@ class BreadthFirstPath
         return $this->distTo[$vertex];
     }
 
+    /**
+     * @param int           $vertex
+     * @return array|null
+     */
     public function pathTo(int $vertex)
     {
          // validate this vertex in the context of the given graph
@@ -146,6 +150,7 @@ class BreadthFirstPath
     }
 
     /**
+     * @return bool
      */
     private function check()
     {

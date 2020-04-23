@@ -77,6 +77,7 @@ class Graph
      */
     public function getEdges()
     {
+        // return the number of edges
         return $this->edges;
     }
 
@@ -117,6 +118,7 @@ class Graph
     {
         // validate the vertex
         static::validateVertex($vertex, $this->getVertices());
+        // return the count of neighbors
         return count($this->adjacent($vertex));
     }
 
@@ -235,10 +237,14 @@ class Graph
         return new Graph($vertices, $adjacencyList);
     }
 
+    /**
+     * @param string $graph
+     * @return Graph
+     */
     public static function fromString(string $graph)
     {
+        // parse the lines
         $lines = explode("\n", $graph);
-
         // open the stream for reading
         $vertices = (int)filter_var(
             $lines[0],

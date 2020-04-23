@@ -5,6 +5,8 @@ namespace NodesAndEdges;
 use InvalidArgumentException;
 
 /**
+ * Class DepthFirstSearch
+ * @package NodesAndEdges
  */
 class DepthFirstSearch
 {
@@ -61,6 +63,7 @@ class DepthFirstSearch
 
     /**
      * Is there a path between the source vertex and vertex v
+     *
      * @param int       $vertex
      * @return bool     true if there is a path, false otherwise
      * @throws InvalidArgumentException unless 0 <= $vertex < $vertices
