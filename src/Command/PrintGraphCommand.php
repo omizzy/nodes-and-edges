@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use NodesAndEdges\Graph;
+use NodesAndEdges\UndirectedGraph;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
@@ -45,10 +45,10 @@ class PrintGraphCommand extends Command
             // get the content
             $content = file_get_contents($file);
             // build the graphs
-            $graph = Graph::fromString($content);
+            $graph = UndirectedGraph::fromString($content);
         } else {
             // build the graph
-            $graph = Graph::fromFile($file);
+            $graph = UndirectedGraph::fromFile($file);
         }
         $output->writeln($graph);
     }

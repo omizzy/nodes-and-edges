@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use NodesAndEdges\Graph;
+use NodesAndEdges\UndirectedGraph;
 use NodesAndEdges\DepthFirstPath;
 
 /**
@@ -20,6 +20,9 @@ class DFSPathCommand extends Command
      */
     protected static $defaultName = 'nae:dfs-path';
 
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -39,7 +42,8 @@ class DFSPathCommand extends Command
 
     /**
      * @param InputInterface $input
-     * @param 
+     * @param OutputInterface $output
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -48,7 +52,7 @@ class DFSPathCommand extends Command
         // scope in the argument
         $sourceVertex = (int)$input->getArgument('sourceVertex');
         // build the graph
-        $graph = Graph::fromFile($file);
+        $graph = UndirectedGraph::fromFile($file);
         // create an instance
         $dfs = new DepthFirstPath($graph, $sourceVertex);
         // init
@@ -78,5 +82,7 @@ class DFSPathCommand extends Command
                 ));
             }
         }
+        //  return success signal
+        return 0;
     }
 }

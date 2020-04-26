@@ -10,10 +10,10 @@ class GraphClient
     /**
      * Maximum degree
      *
-     * @param Graph $graph
+     * @param UndirectedGraph $graph
      * @return int
      */
-    public static function maxDegree(Graph $graph)
+    public static function maxDegree(UndirectedGraph $graph)
     {
         // init
         $max = 0;
@@ -36,10 +36,10 @@ class GraphClient
     /**
      * Average degree
      *
-     * @param Graph $graph
+     * @param UndirectedGraph $graph
      * @return int
      */
-    public static function avgDegree(Graph $graph)
+    public static function avgDegree(UndirectedGraph $graph)
     {
         // each edge incident on two vertices
         return 2 * $graph->getEdges() / $graph->getVertices();
@@ -48,10 +48,10 @@ class GraphClient
     /**
      * number of self-loops
      *
-     * @param Graph $graph
+     * @param UndirectedGraph $graph
      * @return int
      */
-    public static function numberOfSelfLoops(Graph $graph)
+    public static function numberOfSelfLoops(UndirectedGraph $graph)
     {
         // init
         $count = 0;

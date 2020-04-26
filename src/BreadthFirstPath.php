@@ -37,18 +37,18 @@ class BreadthFirstPath
     private $sourceVertex;
 
     /**
-     * @var Graph
+     * @var UndirectedGraph
      */
     private $graph;
 
     /**
-     * @param Graph $graph
+     * @param UndirectedGraph $graph
      * @param int   $sourceVertex
      */
-    public function __construct(Graph $graph, int $sourceVertex)
+    public function __construct(UndirectedGraph $graph, int $sourceVertex)
     {
          // validate this vertex in the context of the given graph
-        Graph::validateVertex($sourceVertex, $graph->getVertices());
+        UndirectedGraph::validateVertex($sourceVertex, $graph->getVertices());
         // init
         $this->marked = array_fill(0, $graph->getVertices(), false);
         // init
@@ -106,7 +106,7 @@ class BreadthFirstPath
     public function hasPathTo(int $vertex)
     {
          // validate this vertex in the context of the given graph
-        Graph::validateVertex($vertex, $this->graph->getVertices());
+        UndirectedGraph::validateVertex($vertex, $this->graph->getVertices());
         // return the flag
         return $this->marked[$vertex];
     }
@@ -118,7 +118,7 @@ class BreadthFirstPath
     public function distTo(int $vertex)
     {
          // validate this vertex in the context of the given graph
-        Graph::validateVertex($vertex, $this->graph->getVertices());
+        UndirectedGraph::validateVertex($vertex, $this->graph->getVertices());
         // return the value
         return $this->distTo[$vertex];
     }
@@ -130,7 +130,7 @@ class BreadthFirstPath
     public function pathTo(int $vertex)
     {
          // validate this vertex in the context of the given graph
-        Graph::validateVertex($vertex, $this->graph->getVertices());
+        UndirectedGraph::validateVertex($vertex, $this->graph->getVertices());
         // check if there is a path
         if (!$this->hasPathTo($vertex)) {
             // there is no path

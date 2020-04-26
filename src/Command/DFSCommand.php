@@ -2,12 +2,15 @@
 
 namespace NodesAndEdges\Command;
 
+use NodesAndEdges\Digraph;
+use NodesAndEdges\DirectedDepthFirstSearch;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use NodesAndEdges\Graph;
-use NodesAndEdges\DepthFirstSearch;
+use NodesAndEdges\UndirectedGraph;
+use NodesAndEdges\UndirectedDepthFirstSearch;
 
 /**
  * Class DFSCommand
@@ -30,27 +33,41 @@ class DFSCommand extends Command
             InputArgument::REQUIRED,
             'The full path of the graph file'
         )->addArgument(
-            'sourceVertex',
+            'source-vertex',
             InputArgument::REQUIRED,
             'Source vertex'
+        )->addOption(
+            'digraph',
+            '',
+            InputOption::VALUE_NONE,
+            'Use a directed graph instead of an undirected one.'
         );
     }
 
 
     /**
      * @param InputInterface $input
-     * @param 
+     * @param OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // scope in the argument
         $file = $input->getArgument('file');
         // scope in the argument
-        $sourceVertex = (int)$input->getArgument('sourceVertex');
-        // build the graph
-        $graph = Graph::fromFile($file);
-        // create an instance
-        $dfs = new DepthFirstSearch($graph, $sourceVertex);
+        $sourceVertex = (int)$input->getArgument('source-vertex');
+        // get option
+        $digraphOption = $input->getOption('digraph');
+        if ($digraphOption) {
+            // build the graph
+            $graph = Digraph::fromFile($file);
+            // create an instance
+            $dfs = new DirectedDepthFirstSearch($graph, $sourceVertex);
+        } else {
+            // build the graph
+            $graph = UndirectedGraph::fromFile($file);
+            // create an instance
+            $dfs = new UndirectedDepthFirstSearch($graph, $sourceVertex);
+        }
         // init
         $marked = [];
         // iterate over the set of graph vertices

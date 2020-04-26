@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use NodesAndEdges\Graph;
+use NodesAndEdges\UndirectedGraph;
 use NodesAndEdges\BreadthFirstPath;
 
 /**
@@ -48,7 +48,7 @@ class BFSPathCommand extends Command
         // scope in the argument
         $sourceVertex = (int)$input->getArgument('sourceVertex');
         // build the graph
-        $graph = Graph::fromFile($file);
+        $graph = UndirectedGraph::fromFile($file);
         // create an instance
         $bfs = new BreadthFirstPath($graph, $sourceVertex);
         // init

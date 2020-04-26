@@ -8,26 +8,21 @@ use InvalidArgumentException;
  * Class DepthFirstSearch
  * @package NodesAndEdges
  */
-class DepthFirstSearch
+abstract class DepthFirstSearch
 {
     /**
      * @var bool[]
      */
-    private $marked;
-
-    /**
-     * @var int
-     */
-    private $count;
+    protected $marked;
 
     /**
      * @var Graph
      */
-    private $graph;
+    protected $graph;
 
     /**
-     * @var Graph   $graph
-     * @var int     $sourceVertex
+     * @var Graph $graph
+     * @var int $sourceVertex
      */
     public function __construct(Graph $graph, int $sourceVertex)
     {
@@ -42,26 +37,6 @@ class DepthFirstSearch
     }
 
     /**
-     * Depth first search from $vertex
-     *
-     * @var int     $vertex
-     */
-    private function dfs(int $vertex) {
-        // bump up
-        $this->count++;
-        // set this vertex as marked
-        $this->marked[$vertex] = true;
-        // iterate over the the vertices incident to $vertex
-        foreach ($this->graph->adjacent($vertex) as $w) {
-            // if we have not visited this vertex yet..
-            if (!$this->marked[$w]) {
-                // lets visit
-                $this->dfs($w);
-            }
-        }
-    }
-
-    /**
      * Is there a path between the source vertex and vertex v
      *
      * @param int       $vertex
@@ -72,18 +47,14 @@ class DepthFirstSearch
         // convenience var
         $vertices = $this->graph->getVertices();
         // validate this vertex in the context of the given graph
-        Graph::validateVertex($vertex, $vertices);
+        UndirectedGraph::validateVertex($vertex, $vertices);
         // return the flag
         return $this->marked[$vertex];
     }
 
     /**
-     * Returns the number of vertices connected to $sourceVertex
-     * 
-     * @return int  the number of vertices connected to $sourceVertex
+     * @param int $vertex
+     * @return mixed
      */
-    public function count()
-    {
-        return $this->count;
-    }
+    abstract protected function dfs(int $vertex);
 }

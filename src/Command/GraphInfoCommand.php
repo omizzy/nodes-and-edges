@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
-use NodesAndEdges\Graph;
+use NodesAndEdges\UndirectedGraph;
 use NodesAndEdges\GraphClient;
 
 /**
@@ -39,7 +39,7 @@ class GraphInfoCommand extends Command
         // scope in the argument
         $file = $input->getArgument('file');
         // build the graph
-        $graph = Graph::fromFile($file);
+        $graph = UndirectedGraph::fromFile($file);
         $output->writeln('Max Degrees: ' . GraphClient::maxDegree($graph));
         $output->writeln('Average Degrees: ' . GraphClient::avgDegree($graph));
         $output->writeln('Number of self loops: ' . GraphClient::numberOfSelfLoops($graph));
