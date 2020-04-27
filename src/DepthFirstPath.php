@@ -8,7 +8,7 @@ namespace NodesAndEdges;
 class DepthFirstPath
 {
     /**
-     * @var UndirectedGraph
+     * @var Graph
      */
     private $graph;
 
@@ -28,10 +28,10 @@ class DepthFirstPath
     private $sourceVertex;
 
     /**
-     * @var UndirectedGraph   $graph
+     * @var Graph   $graph
      * @var int     $sourceVertex
      */
-    public function __construct(UndirectedGraph $graph, int $sourceVertex)
+    public function __construct(Graph $graph, int $sourceVertex)
     {
         // validate this vertex in the context of the given graph
         UndirectedGraph::validateVertex($sourceVertex, $graph->getVertices());
@@ -74,7 +74,7 @@ class DepthFirstPath
     {
         // validate this vertex in the context of the given graph
         UndirectedGraph::validateVertex($vertex, $this->graph->getVertices());
-         // return 
+        // return 
         return $this->marked[$vertex];
     }
 
