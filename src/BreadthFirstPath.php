@@ -3,7 +3,7 @@
 namespace NodesAndEdges;
 
 /**
- * Class BreadthFirstPath 
+ * Class BreadthFirstPath
  */
 class BreadthFirstPath
 {
@@ -37,15 +37,15 @@ class BreadthFirstPath
     private $sourceVertex;
 
     /**
-     * @var UndirectedGraph
+     * @var Graph
      */
     private $graph;
 
     /**
-     * @param UndirectedGraph $graph
+     * @param Graph $graph
      * @param int   $sourceVertex
      */
-    public function __construct(UndirectedGraph $graph, int $sourceVertex)
+    public function __construct(Graph $graph, int $sourceVertex)
     {
          // validate this vertex in the context of the given graph
         UndirectedGraph::validateVertex($sourceVertex, $graph->getVertices());
@@ -53,12 +53,12 @@ class BreadthFirstPath
         $this->marked = array_fill(0, $graph->getVertices(), false);
         // init
         $this->distTo = array_fill(0, $graph->getVertices(), static::INFINITY);
-        // the distance to our source vertex is always zero
-        $this->distTo[$this->sourceVertex] = 0;
         // init
         $this->edgeTo = [];
         // set
         $this->sourceVertex = $sourceVertex;
+        // the distance to our source vertex is always zero
+        $this->distTo[$this->sourceVertex] = 0;
         // set
         $this->graph = $graph;
         // invoke bfs
@@ -184,7 +184,7 @@ class BreadthFirstPath
         for ($w = 0; $w < $this->graph->getVertices(); $w++) {
             if (!$this->hasPathTo($w) || $w == $this->sourceVertex) {
                 continue;
-            } 
+            }
             $v = $this->edgeTo[$w];
             if ($this->distTo[$w] != $this->distTo[$v] + 1) {
                 // StdOut.println("shortest path edge " + v + "-" + w);
