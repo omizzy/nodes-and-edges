@@ -3,9 +3,11 @@
 
 namespace NodesAndEdges\Command;
 
-
-use NodesAndEdges\Digraph;
+use Fhaculty\Graph\Edge\Directed as DirectedEdge;
+use Fhaculty\Graph\Graph as Grafh;
+use Graphp\GraphViz\GraphViz;
 use NodesAndEdges\DiTopological;
+use NodesAndEdges\Digraph;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -51,15 +53,43 @@ class TopologicalOrderCommand extends Command
         $graph = Digraph::fromFile($file);
         // run it
         $diTopological = new DiTopological($graph);
+        // init
+        $grafh = new Grafh();
         // check for order
         if ($diTopological->hasOrder()) {
             // get the order
             $order = $diTopological->order();
             // iterate over the set
             foreach ($order as $vertex) {
+                if ($grafh->hasVertex($vertex)) {
+                    $vertexV = $grafh->getVertex($vertex);
+                } else {
+                    $vertexV = $grafh->createVertex($vertex);
+                }
+                // get v
+                $vertexV->setAttribute('graphviz.color', 'red');
+                // get neighbors of vertex
+                $neighbors = $graph->adjacent($vertex);
+                // iterate over the set
+                foreach ($neighbors as $w) {
+                    // get w
+                    if ($grafh->hasVertex($w)) {
+                        $vertexW = $grafh->getVertex($w);
+                    } else {
+                        $vertexW = $grafh->createVertex($w);
+                    }
+                    $vertexW->setAttribute('graphviz.color', 'red');
+                    //
+                    if (!$vertexV->hasEdgeTo($vertexW)) {
+                        $edge = new DirectedEdge($vertexV, $vertexW);
+                        $edge->setAttribute('graphviz.color', 'green');
+                    }
+                }
                 // print it
                 $output->writeln($vertex);
             }
+            $graphviz = new GraphViz();
+            $output->writeln($graphviz->createImageFile($grafh));
         } else {
             $output->writeln('No order in G');
 

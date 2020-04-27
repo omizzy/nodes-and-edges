@@ -238,12 +238,81 @@ class Digraph extends Graph
         }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
+
+            $raw = fgets($handle);
+            $trimmed = trim($raw);
+            $exploded = explode(' ', $trimmed);
+            $filtered2=array_filter($exploded, function($v, $k) {
+                return (!empty($v) || (strlen($v) > 0));
+            }, ARRAY_FILTER_USE_BOTH);
+            $values = array_values($filtered2);
+            // get v
+            $v = (int)filter_var(
+                $values[0],
+                FILTER_SANITIZE_NUMBER_INT
+            );
+
+            // get w
+            $w = (int)filter_var(
+                $values[1],
+                FILTER_SANITIZE_NUMBER_INT
+            );
+            // validate it
+            static::validateVertex($v, $vertices);
+            // validate it
+            static::validateVertex($w, $vertices);
+            // add to the graph
+            $graph->addEdge($v, $w);
+        }
+        // close the stream
+        fclose($handle);
+        // return the built graph
+        return $graph;
+    }
+
+    /**
+     *
+     * @param string $graph
+     * @return Digraph
+     */
+    public static function fromString(string $graph)
+    {
+        // parse the lines
+        $lines = explode("\n", $graph);
+        // open the stream for reading
+        $vertices = (int)filter_var(
+            $lines[0],
+            FILTER_SANITIZE_NUMBER_INT
+        );
+        // sanity check
+        if ($vertices < 0) {
+            // bad state
+            throw new InvalidArgumentException(
+                'number of vertices in a Graph must be non-negative'
+            );
+        }
+        // instantiate a new graph
+        $graph = new Digraph($vertices);
+        // read in the amount of edges in the stream
+        $edges = (int)filter_var(
+            $lines[1],
+            FILTER_SANITIZE_NUMBER_INT
+        );
+        // sanity check
+        if ($edges < 0) {
+            // bad state
+            throw new InvalidArgumentException(
+                'number of edges in a Graph must be non-negative'
+            );
+        }
+        // read in the edges
+        for ($i = 0; $i < $edges; $i++) {
             // read the line and parse
             $edge = array_values(
                 array_filter(
                     explode(
                         ' ',
-                        trim(fgets($handle))
+                        trim($lines[$i+2])
                     )
                 )
             );

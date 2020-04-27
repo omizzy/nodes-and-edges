@@ -2,6 +2,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
+use NodesAndEdges\Command\StrongComponentsCommand;
 use NodesAndEdges\Command\TopologicalOrderCommand;
 use Symfony\Component\Console\Application;
 use NodesAndEdges\Command\PrintGraphCommand;
@@ -18,8 +19,6 @@ $application->add(new DFSCommand());
 $application->add(new DFSPathCommand());
 $application->add(new BFSPathCommand());
 $application->add(new TopologicalOrderCommand());
-
-
-
+$application->add(new StrongComponentsCommand());
 $application->run();
 

@@ -2,16 +2,20 @@
 
 namespace NodesAndEdges\Command;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
+use Fhaculty\Graph\Edge\Directed as DirectedEdge;
+use Fhaculty\Graph\Graph as Grafh;
+use Graphp\GraphViz\GraphViz;
+use NodesAndEdges\Digraph;
 use NodesAndEdges\UndirectedGraph;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class PrintGraphCommand
- */ 
+ */
 class PrintGraphCommand extends Command
 {
     /**
@@ -34,9 +38,21 @@ class PrintGraphCommand extends Command
             null,
             InputOption::VALUE_NONE,
             'If set, the file will be read as a string and then processed'
+        )->addOption(
+            'digraph',
+            null,
+            InputOption::VALUE_NONE,
+            'Switch to digraph mode'
         );
     }
 
+    /**
+     * todo: simply all of this when polymorphism improves
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // scope in the argument
@@ -44,12 +60,55 @@ class PrintGraphCommand extends Command
         if ($input->getOption('string')) {
             // get the content
             $content = file_get_contents($file);
-            // build the graphs
-            $graph = UndirectedGraph::fromString($content);
+            // detect di-graph mode
+            if ($input->getOption('digraph')) {
+                // build the graph
+                $graph = Digraph::fromString($content);
+            } else {
+                // build the graphs
+                $graph = UndirectedGraph::fromString($content);
+            }
         } else {
-            // build the graph
-            $graph = UndirectedGraph::fromFile($file);
+            // detect di-graph mode
+            if ($input->getOption('digraph')) {
+                // build the graph
+                $graph = Digraph::fromFile($file);
+            } else {
+                // build the graph
+                $graph = UndirectedGraph::fromFile($file);
+            }
         }
+
         $output->writeln($graph);
+        $grafh = new Grafh();
+        $vertices = $graph->getVertices();
+        for ($vertex = 0; $vertex < $vertices; $vertex++) {
+            if ($grafh->hasVertex($vertex)) {
+                $vertexV = $grafh->getVertex($vertex);
+            } else {
+                $vertexV = $grafh->createVertex($vertex);
+            }
+            // get v
+            $vertexV->setAttribute('graphviz.color', 'red');
+            // get the neighbors
+            $neighbors = $graph->adjacent($vertex);
+            // iterate over the set
+            foreach ($neighbors as $w) {
+                // get w
+                if ($grafh->hasVertex($w)) {
+                    $vertexW = $grafh->getVertex($w);
+                } else {
+                    $vertexW = $grafh->createVertex($w);
+                }
+                $vertexW->setAttribute('graphviz.color', 'red');
+                //
+                if (!$vertexV->hasEdgeTo($vertexW)) {
+                    $edge = new DirectedEdge($vertexV, $vertexW);
+                    $edge->setAttribute('graphviz.color', 'green');
+                }
+            }
+        }
+        $graphviz = new GraphViz();
+        $output->writeln($graphviz->createImageFile($grafh));
     }
 }

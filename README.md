@@ -1,5 +1,5 @@
 # nodes-and-edges
-A php port of the library described in
+A php partial-port of the library described in
 
 https://algs4.cs.princeton.edu/40graphs/ 
 

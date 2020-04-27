@@ -6,6 +6,8 @@
         "psr-4": {"NodesAndEdges\\": "src/"}
     },
     "require": {
-        "symfony/console": "^4.4"
+        "symfony/console": "^4.4",
+        "graphp/graphviz": "dev-macluester#5ad4f5d9fefa4e124e9c977a9e032513780c0307  as 1.0",
+        "graphp/graph": "dev-master#81eef65 as 1.0.0"
     }
 }

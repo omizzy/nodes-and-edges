@@ -91,7 +91,7 @@ abstract class Graph
     public function adjacent(int $vertex)
     {
         // validate the vertex
-        static::validateVertex($vertex, $this->getVertices());
+        Digraph::validateVertex($vertex, $this->getVertices());
         // return the adjacent vertices to it
         return $this->adjacencyList[$vertex];
     }
@@ -99,7 +99,7 @@ abstract class Graph
     public function degree(int $vertex)
     {
         // validate the vertex
-        static::validateVertex($vertex, $this->getVertices());
+        Digraph::validateVertex($vertex, $this->getVertices());
         // return the count of neighbors
         return count($this->adjacent($vertex));
     }
