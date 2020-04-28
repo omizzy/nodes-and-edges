@@ -22,7 +22,5 @@ https://algs4.cs.princeton.edu/40graphs/
      * (other than the requisite repetition
      * of the first and last vertices).
 
-## todo:
+### under construction
 
-- plural version of classes
-- handle polymorphism better.
