@@ -12,15 +12,16 @@ class UndirectedGraph extends Graph
 {
     /**
      * Add edge v-w to this graph
+     *
      * @param int $v
      * @param int $w
      */
     public function addEdge(int $v, int $w)
     {
         // validate the vertex
-        static::validateVertex($v, $this->vertices);
+        Graph::validateVertex($v, $this->vertices);
         // validate the vertex
-        static::validateVertex($v, $this->vertices);
+        Graph::validateVertex($v, $this->vertices);
         // bump
         $this->edges++;
         // w is adjacent to v
@@ -51,7 +52,7 @@ class UndirectedGraph extends Graph
         if ($vertices < 0) {
             // bad state
             throw new InvalidArgumentException(
-                'number of vertices in a Graph must be nonnegative'
+                'number of vertices in a Graph must be non-negative'
             );
         }
         // instantiate a new graph
@@ -65,13 +66,24 @@ class UndirectedGraph extends Graph
         if ($edges < 0) {
             // bad state
             throw new InvalidArgumentException(
-                'number of edges in a Graph must be nonnegative'
+                'number of edges in a Graph must be non-negative'
             );  
         } 
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
-            // read the line and parse
-            $edge = explode(' ', fgets($handle));
+            // fet from source
+            $raw = fgets($handle);
+            // clean
+            $trimmed = trim($raw);
+            // parse
+            $exploded = explode(' ', $trimmed);
+            // filter
+            $filtered = array_filter($exploded, function($v, $k) {
+                // make sure it valid
+                return (!empty($v) || (strlen($v) > 0));
+            }, ARRAY_FILTER_USE_BOTH);
+            // get values
+            $edge = array_values($filtered);
             // get v
             $v = (int)filter_var(
                 $edge[0],
@@ -83,9 +95,9 @@ class UndirectedGraph extends Graph
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($v, $vertices);
+            Graph::validateVertex($v, $vertices);
             // validate it
-            static::validateVertex($w, $vertices);
+            Graph::validateVertex($w, $vertices);
             // add to the graph
             $graph->addEdge($v, $w); 
         }
@@ -133,7 +145,7 @@ class UndirectedGraph extends Graph
         if ($vertices < 0) {
             // bad state
             throw new InvalidArgumentException(
-                'number of vertices in a Graph must be nonnegative'
+                'number of vertices in a Graph must be non-negative'
             );
         }
         // instantiate a new graph
@@ -152,8 +164,19 @@ class UndirectedGraph extends Graph
         }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
-            // read the line and parse
-            $edge = explode(' ', $lines[$i+2]);
+            // fet from source
+            $raw = $lines[$i+2];
+            // clean
+            $trimmed = trim($raw);
+            // parse
+            $exploded = explode(' ', $trimmed);
+            // filter
+            $filtered = array_filter($exploded, function($v, $k) {
+                // make sure it valid
+                return (!empty($v) || (strlen($v) > 0));
+            }, ARRAY_FILTER_USE_BOTH);
+            // get values
+            $edge = array_values($filtered);
             // get v
             $v = (int)filter_var(
                 $edge[0],
@@ -165,9 +188,9 @@ class UndirectedGraph extends Graph
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($v, $vertices);
+            Graph::validateVertex($v, $vertices);
             // validate it
-            static::validateVertex($w, $vertices);
+            Graph::validateVertex($w, $vertices);
             // add to the graph
             $graph->addEdge($v, $w);
         }
@@ -190,7 +213,7 @@ class UndirectedGraph extends Graph
         if ($vertices < 0) {
             // bad state
             throw new InvalidArgumentException(
-                'number of vertices in a Graph must be nonnegative'
+                'number of vertices in a Graph must be non-negative'
             );
         }
         // instantiate a new graph
@@ -204,13 +227,24 @@ class UndirectedGraph extends Graph
         if ($edges < 0) {
             // bad state
             throw new InvalidArgumentException(
-                'number of edges in a Graph must be nonnegative'
+                'number of edges in a Graph must be non-negative'
             );
         }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
-            // read the line and parse
-            $edge = explode(' ', fgets($handle));
+            // fet from source
+            $raw = fgets($handle);
+            // clean
+            $trimmed = trim($raw);
+            // parse
+            $exploded = explode(' ', $trimmed);
+            // filter
+            $filtered = array_filter($exploded, function($v, $k) {
+                // make sure it valid
+                return (!empty($v) || (strlen($v) > 0));
+            }, ARRAY_FILTER_USE_BOTH);
+            // get values
+            $edge = array_values($filtered);
             // get v
             $v = (int)filter_var(
                 $edge[0],
@@ -222,9 +256,9 @@ class UndirectedGraph extends Graph
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($v, $vertices);
+            Graph::validateVertex($v, $vertices);
             // validate it
-            static::validateVertex($w, $vertices);
+            Graph::validateVertex($w, $vertices);
             // add to the graph
             $graph->addEdge($v, $w);
         }

@@ -2,12 +2,12 @@
 
 namespace NodesAndEdges\Command;
 
+use NodesAndEdges\DFS\DepthFirstPath;
+use NodesAndEdges\UndirectedGraph;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use NodesAndEdges\UndirectedGraph;
-use NodesAndEdges\DepthFirstPath;
 
 /**
  * Class DFSPathCommand
@@ -55,8 +55,6 @@ class DFSPathCommand extends Command
         $graph = UndirectedGraph::fromFile($file);
         // create an instance
         $dfs = new DepthFirstPath($graph, $sourceVertex);
-        // init
-        $marked = [];
         // iterate over the set of graph vertices
         for ($vertex = 0; $vertex < $graph->getVertices(); $vertex++) {
             // is this connected to the source vertex

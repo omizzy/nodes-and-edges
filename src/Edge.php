@@ -4,7 +4,7 @@ namespace NodesAndEdges;
 
 use InvalidArgumentException;
 
-/***
+/**
  * Class Edge
  * @package NodesAndEdges
  */
@@ -27,6 +27,7 @@ class Edge
 
     /**
      * Initializes an edge between vertices $v and $w of the given $weight
+     *
      * @param int $v one vertex
      * @param int $w the other vertex
      * @param float $weight the weight of this edge
@@ -37,12 +38,12 @@ class Edge
         // sanity check
         if ($v < 0) {
             // panic here
-            throw new InvalidArgumentException("vertex index must be a nonnegative integer");
+            throw new InvalidArgumentException("vertex index must be a non-negative integer");
         }
         // sanity check
         if ($w < 0) {
             // panic here
-            throw new InvalidArgumentException("vertex index must be a nonnegative integer");
+            throw new InvalidArgumentException("vertex index must be a non-negative integer");
         }
         // sanity check
         if (is_nan($weight)) {
@@ -86,12 +87,16 @@ class Edge
     public function other(int $vertex)
     {
         // check what side are we on and return the other
-        if ($vertex == $this->v)
+        if ($vertex == $this->v) {
+            // return it
             return $this->w;
-        else if ($vertex == $this->w)
+        } else if ($vertex == $this->w) {
+            // return it
             return $this->v;
-        else
+        } else {
+            // no go
             throw new InvalidArgumentException("Illegal endpoint");
+        }
     }
 
     /**
@@ -128,6 +133,7 @@ class Edge
      */
     public function __toString()
     {
+        // return formatted
         return sprintf("%d-%d %.5f", $this->v, $this->w, $this->weight);
     }
 }

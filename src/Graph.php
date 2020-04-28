@@ -1,8 +1,6 @@
 <?php
 
-
 namespace NodesAndEdges;
-
 
 use InvalidArgumentException;
 
@@ -38,7 +36,7 @@ abstract class Graph
         //
         if ($vertices < 0) {
             throw new InvalidArgumentException(
-                'Number of vertices must be nonnegative'
+                'Number of vertices must be non-negative'
             );
         }
         // set
@@ -96,6 +94,10 @@ abstract class Graph
         return $this->adjacencyList[$vertex];
     }
 
+    /**
+     * @param int $vertex
+     * @return int
+     */
     public function degree(int $vertex)
     {
         // validate the vertex
@@ -105,7 +107,7 @@ abstract class Graph
     }
 
     /**
-     * Utility class
+     * Utility function
      *
      * @param int $vertex
      * @param int $vertices
@@ -118,7 +120,7 @@ abstract class Graph
             throw new InvalidArgumentException(sprintf(
                 'vertex %d is not between 0 and %d',
                 $vertex,
-                $vertices-1
+                $vertices - 1
             ));
         }
     }

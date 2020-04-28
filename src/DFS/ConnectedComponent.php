@@ -1,46 +1,58 @@
 <?php
 
-namespace NodesAndEdges;
+namespace NodesAndEdges\DFS;
 
 use InvalidArgumentException;
+use NodesAndEdges\Graph;
 
 /**
  * Class ConnectedComponent
- * @package NodesAndEdges
+ * @package NodesAndEdges\DFS
  */
 abstract class ConnectedComponent
 {
     /**
      * id[v] = id of connected component containing v
+     *
      * @var int[]
      */
     protected $id;
 
     /**
      * marked[v] = has vertex v been marked?
+     *
      * @var int[]
      */
     protected $marked;
 
     /**
      * size[id] = number of vertices in given component
+     *
      * @var int[]
      */
     protected $size;
 
     /**
      * number of connected components
+     *
      * @var int
      */
     protected $count;
 
     /**
-     * Computes the connected components of the undirected graph g.
+     * @var Graph
+     */
+    protected $graph;
+
+    /**
+     * Computes the connected components of the graph g.
      *
      * @param Graph $g the graph
      */
     public function __construct(Graph $g)
     {
+        // set
+        $this->graph = $g;
         // get vertices
         $vertices = $g->getVertices();
         // init
@@ -56,7 +68,7 @@ abstract class ConnectedComponent
             // check if we have touched this vertex
             if (!$this->marked[$vertex]) {
                 // we haven't, lets explore
-                $this->dfs($g, $vertex);
+                $this->dfs($vertex);
                 // increment the count for components
                 $this->count++;
             }
@@ -64,40 +76,45 @@ abstract class ConnectedComponent
     }
 
     /**
-     * Returns the component id of the connected component containing vertex {@code v}.
+     * Returns the component id of the connected component containing vertex $v.
      *
-     * @param  int $v the vertex
-     * @return int the component id of the connected component containing vertex {@code v}
-     * @throws InvalidArgumentException unless 0 <= v < V
+     * @param int $v the vertex
+     * @return int the component id of the connected component containing vertex $v
+     * @throws InvalidArgumentException unless 0 <= $v < V
      */
     public function id(int $v)
     {
-        $this->validateVertex($v);
+        // validate
+        Graph::validateVertex($v, $this->graph->getVertices());
+        // fetch and return
         return $this->id[$v];
     }
 
 
     /**
-     * Returns the number of vertices in the connected component containing vertex {@code v}.
+     * Returns the number of vertices in the connected component containing $v
      *
-     * @param  int $v the vertex
-     * @return int the number of vertices in the connected component containing vertex {@code v}
+     * @param int $v the vertex
+     * @return int the number of vertices in the connected component containing $v
      * @throws InvalidArgumentException unless 0 <= v < V
      */
     public function size(int $v)
     {
-        $this->validateVertex($v);
+        // validate
+        Graph::validateVertex($v, $this->graph->getVertices());
+        // fetch and return
         return $this->size[$this->id($v)];
     }
 
 
     /**
-     * Returns the number of connected components in the graph {@code G}.
+     * Returns the number of connected components in the graph
      *
-     * @return int the number of connected components in the graph {@code G}
+     * @return int the number of connected components in the graph
      */
     public function count()
     {
+        // fetch and return
         return $this->count;
     }
 
@@ -107,35 +124,42 @@ abstract class ConnectedComponent
      *
      * @param  int $v one vertex
      * @param  int $w the other vertex
-     * @return  true if vertices v and w are in the same
+     * @return true if vertices v and w are in the same
      *         connected component; false otherwise
      * @throws InvalidArgumentException unless 0 <= v < V
      * @throws InvalidArgumentException unless  0 <= w < V
      */
     public function connected(int $v, int $w)
     {
-        $this->validateVertex($v);
-        $this->validateVertex($w);
+        // validate
+        Graph::validateVertex($v, $this->graph->getVertices());
+        // validate
+        Graph::validateVertex($w, $this->graph->getVertices());
+        // evaluate
         return $this->id($v) == $this->id($w);
     }
 
-    // throw an IllegalArgumentException unless 0 <= v < V
-    protected function validateVertex(int $vertex)
+
+    /**
+     * Is there a path between the source vertex and vertex v
+     *
+     * @param int $vertex
+     * @return bool true if there is a path, false otherwise
+     * @throws InvalidArgumentException unless 0 <= $vertex < $vertices
+     */
+    public function marked(int $vertex)
     {
-        $vertices = count($this->marked);
-        if ($vertex < 0 || $vertex >= $vertices) {
-            throw new InvalidArgumentException(sprintf(
-                'vertex %d is not between 0 and %d',
-                $vertex,
-                ($vertices - 1)
-            ));
-        }
+        // convenience var
+        $vertices = $this->graph->getVertices();
+        // validate this vertex in the context of the given graph
+        Graph::validateVertex($vertex, $vertices);
+        // return the flag
+        return $this->marked[$vertex];
     }
 
-/**
-     * @param Graph $g
+    /**
      * @param int $vertex
      * @return mixed
      */
-    abstract protected function dfs($g, int $vertex);
+    abstract protected function dfs(int $vertex);
 }

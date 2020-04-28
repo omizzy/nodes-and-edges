@@ -1,23 +1,20 @@
 <?php
 
-namespace NodesAndEdges;
-
-use NodesAndEdges\UndirectedGraph;
+namespace NodesAndEdges\DFS;
 
 /**
  * Class UCC
- * @package NodesAndEdges
+ * @package NodesAndEdges\DFS
  */
 class UCC extends ConnectedComponent
 {
     /**
      * Depth-first search for a Graph
-     * @param Graph $g
+     *
      * @param $vertex
      */
-    protected function dfs($g,  int $vertex)
+    protected function dfs(int $vertex)
     {
-        /** @var UndirectedGraph $g */
         // we have visited now
         $this->marked[$vertex] = true;
         // set the component #
@@ -25,13 +22,13 @@ class UCC extends ConnectedComponent
         // bump up the size of this component
         $this->size[$this->count]++;
         // get the neighbors
-        $neighbors = $g->adjacent($vertex);
+        $neighbors = $this->graph->adjacent($vertex);
         // iterate over the neighbors
         foreach ($neighbors as $w) {
             // /check if we have visited this vertex
             if (!$this->marked[$w]) {
                 // we have not, lets visit with dfs
-                $this->dfs($g, $w);
+                $this->dfs($w);
             }
         }
     }

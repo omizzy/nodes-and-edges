@@ -1,37 +1,30 @@
 <?php
 
+namespace NodesAndEdges\DFS;
 
-namespace NodesAndEdges;
-
-use InvalidArgumentException;
+use NodesAndEdges\Graph;
 
 /**
  * Class DirectedCycle
- * @package NodesAndEdges
+ * @package NodesAndEdges\DFS
  */
-class DirectedCycle
+class DirectedCycle extends ConnectedComponent
 {
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $onStack;
 
-    /** @var array */
+    /**
+     * @var null
+     */
     protected $cycle;
 
     /**
      * @var int[]
      */
     private $edgeTo;
-
-    /**
-     * @var bool[]
-     */
-    protected $marked;
-
-    /**
-     * @var Graph
-     */
-    protected $graph;
 
     /**
      * DirectedCycle constructor.
@@ -64,14 +57,12 @@ class DirectedCycle
      */
     protected function dfs(int $vertex)
     {
-        /** @var Digraph $graph */
-        $graph = $this->graph;
         // mark the visit
         $this->marked[$vertex] = true;
         // set stack presence
         $this->onStack[$vertex] = true;
         // get neighbors
-        $neighbors = $graph->adjacent($vertex);
+        $neighbors = $this->graph->adjacent($vertex);
         // iterate over the set
         foreach ($neighbors as $w) {
             // check for cycles
@@ -99,22 +90,6 @@ class DirectedCycle
         }
         // remove the stack presence
         $this->onStack[$vertex] = false;
-    }
-
-    /**
-     * Is there a path between the source vertex and vertex v
-     *
-     * @param int       $vertex
-     * @return bool     true if there is a path, false otherwise
-     * @throws InvalidArgumentException unless 0 <= $vertex < $vertices
-     */
-    public function marked(int $vertex) {
-        // convenience var
-        $vertices = $this->graph->getVertices();
-        // validate this vertex in the context of the given graph
-        UndirectedGraph::validateVertex($vertex, $vertices);
-        // return the flag
-        return $this->marked[$vertex];
     }
 
     /**

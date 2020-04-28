@@ -20,9 +20,9 @@ class EdgeWeightedGraph extends Graph
         // get the other side (a vertex)
         $w = $e->other($v);
         // validate the vertex
-        static::validateVertex($v, $this->vertices);
+        Graph::validateVertex($v, $this->vertices);
         // validate the vertex
-        static::validateVertex($v, $this->vertices);
+        Graph::validateVertex($v, $this->vertices);
         // link the edge to v
         $this->adjacencyList[$v][] = $e;
         // link the edge to w
@@ -84,7 +84,7 @@ class EdgeWeightedGraph extends Graph
         if ($vertices < 0) {
             // bad state
             throw new InvalidArgumentException(
-                'number of vertices in a Graph must be nonnegative'
+                'number of vertices in a Graph must be non-negative'
             );
         }
         // instantiate a new graph
@@ -103,8 +103,19 @@ class EdgeWeightedGraph extends Graph
         }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
-            // read the line and parse
-            $edge = explode(' ', fgets($handle));
+            // fet from source
+            $raw = fgets($handle);
+            // clean
+            $trimmed = trim($raw);
+            // parse
+            $exploded = explode(' ', $trimmed);
+            // filter
+            $filtered = array_filter($exploded, function($v, $k) {
+                // make sure it valid
+                return (!empty($v) || (strlen($v) > 0));
+            }, ARRAY_FILTER_USE_BOTH);
+            // get values
+            $edge = array_values($filtered);
             // get v
             $v = (int)filter_var(
                 $edge[0],
@@ -116,9 +127,9 @@ class EdgeWeightedGraph extends Graph
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($v, $vertices);
+            Graph::validateVertex($v, $vertices);
             // validate it
-            static::validateVertex($w, $vertices);
+            Graph::validateVertex($w, $vertices);
             // get weight
             $weight = (int)filter_var(
                 $edge[2],
@@ -137,6 +148,7 @@ class EdgeWeightedGraph extends Graph
 
     /**
      * Initializes a new graph that is a deep copy of $g
+     *
      * @param EdgeWeightedGraph $g
      * @return EdgeWeightedGraph
      */
@@ -209,8 +221,19 @@ class EdgeWeightedGraph extends Graph
         }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
-            // read the line and parse
-            $edge = explode(' ', $lines[$i+2]);
+            // fet from source
+            $raw = $lines[$i+2];
+            // clean
+            $trimmed = trim($raw);
+            // parse
+            $exploded = explode(' ', $trimmed);
+            // filter
+            $filtered = array_filter($exploded, function($v, $k) {
+                // make sure it valid
+                return (!empty($v) || (strlen($v) > 0));
+            }, ARRAY_FILTER_USE_BOTH);
+            // get values
+            $edge = array_values($filtered);
             // get v
             $v = (int)filter_var(
                 $edge[0],
@@ -222,9 +245,9 @@ class EdgeWeightedGraph extends Graph
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($v, $vertices);
+            Graph::validateVertex($v, $vertices);
             // validate it
-            static::validateVertex($w, $vertices);
+            Graph::validateVertex($w, $vertices);
             // set a default
             $weight = 0;
             // get weight
@@ -246,8 +269,8 @@ class EdgeWeightedGraph extends Graph
     /**
      * Initializes a random edge-weighted graph with $v vertices and $e edges.
      *
-     * @param int $vertices         the number of vertices
-     * @param int $edges            the number of edges
+     * @param int $vertices the number of vertices
+     * @param int $edges the number of edges
      * @return EdgeWeightedGraph
      */
     public static function fromRandom(int $vertices, int $edges)
@@ -338,22 +361,33 @@ class EdgeWeightedGraph extends Graph
         }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
-            // read the line and parse
-            $edge = explode(' ', fgets($handle));
+            // fet from source
+            $raw = fgets($handle);
+            // clean
+            $trimmed = trim($raw);
+            // parse
+            $exploded = explode(' ', $trimmed);
+            // filter
+            $filtered = array_filter($exploded, function($v, $k) {
+                // make sure it valid
+                return (!empty($v) || (strlen($v) > 0));
+            }, ARRAY_FILTER_USE_BOTH);
+            // get values
+            $edge = array_values($filtered);
             // get v
             $v = (int)filter_var(
                 $edge[0],
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($v, $vertices);
+            Graph::validateVertex($v, $vertices);
             // get w
             $w = (int)filter_var(
                 $edge[1],
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($w, $vertices);
+            Graph::validateVertex($w, $vertices);
             // get weight
             $weight = (int)filter_var(
                 $edge[2],

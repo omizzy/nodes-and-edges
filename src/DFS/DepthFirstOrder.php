@@ -1,13 +1,15 @@
 <?php
 
 
-namespace NodesAndEdges;
+namespace NodesAndEdges\DFS;
+
+use NodesAndEdges\Graph;
 
 /**
- * Class DirectedDepthFirstOrder
+ * Class DepthFirstOrder
  * @package NodesAndEdges
  */
-class DirectedDepthFirstOrder
+class DepthFirstOrder
 {
     /**
      * @var bool[]
@@ -18,17 +20,25 @@ class DirectedDepthFirstOrder
      * @var Graph
      */
     protected $graph;
-    /** @var array */
+
+    /**
+     * @var array
+     */
     private $pre;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     private $post;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     private $reversePost;
 
     /**
-     * DirectedDepthFirstOrder constructor.
+     * DepthFirstOrder constructor.
+     *
      * @param Graph $graph
      */
     public function __construct(Graph $graph)
@@ -45,7 +55,9 @@ class DirectedDepthFirstOrder
         $vertices = $graph->getVertices();
         // set
         $this->marked = array_fill(0, $vertices, false);
+        // iterate over the vertices
         for ($vertex = 0; $vertex < $vertices; $vertex++) {
+            // check for visit
             if (!$this->marked[$vertex]) {
                 // execute DFS logic
                 $this->dfs($vertex);
@@ -60,12 +72,10 @@ class DirectedDepthFirstOrder
     {
         // enqueue $vertex - add to end
         array_push($this->pre, $vertex);
-        /** @var Digraph $graph */
-        $graph = $this->graph;
         // mark the visit
         $this->marked[$vertex] = true;
         // get neighbors
-        $neighbors = $graph->adjacent($vertex);
+        $neighbors = $this->graph->adjacent($vertex);
         // iterate over the set
         foreach ($neighbors as $w) {
             // check for previous visit

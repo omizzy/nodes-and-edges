@@ -2,12 +2,12 @@
 
 namespace NodesAndEdges\Command;
 
+use NodesAndEdges\BFS\BreadthFirstPaths;
+use NodesAndEdges\UndirectedGraph;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use NodesAndEdges\UndirectedGraph;
-use NodesAndEdges\BreadthFirstPath;
 
 /**
  * Class BFSPathCommand
@@ -36,10 +36,10 @@ class BFSPathCommand extends Command
         );
     }
 
-
     /**
      * @param InputInterface $input
-     * @param 
+     * @param OutputInterface $output
+     * @return int|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -50,9 +50,7 @@ class BFSPathCommand extends Command
         // build the graph
         $graph = UndirectedGraph::fromFile($file);
         // create an instance
-        $bfs = new BreadthFirstPath($graph, $sourceVertex);
-        // init
-        $marked = [];
+        $bfs = new BreadthFirstPaths($graph, $sourceVertex);
         // iterate over the set of graph vertices
         for ($vertex = 0; $vertex < $graph->getVertices(); $vertex++) {
             // is this connected to the source vertex

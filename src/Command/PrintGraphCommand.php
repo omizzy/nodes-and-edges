@@ -2,9 +2,9 @@
 
 namespace NodesAndEdges\Command;
 
-use Fhaculty\Graph\Edge\Directed as DirectedEdge;
-use Fhaculty\Graph\Graph as Grafh;
 use Graphp\GraphViz\GraphViz;
+use Graphp\Graph\EdgeDirected as DirectedEdge;
+use Graphp\Graph\Graph as Grafh;
 use NodesAndEdges\Digraph;
 use NodesAndEdges\UndirectedGraph;
 use Symfony\Component\Console\Command\Command;

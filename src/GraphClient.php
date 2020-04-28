@@ -4,6 +4,7 @@ namespace NodesAndEdges;
 
 /**
  * Class GraphClient
+ * @package NodesAndEdges
  */
 class GraphClient
 {
@@ -29,7 +30,7 @@ class GraphClient
                 $max = $degree;
             }
         }
-        // return the max fiund                
+        // return the max found
         return $max;
     }
 

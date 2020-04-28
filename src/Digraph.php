@@ -1,6 +1,5 @@
 <?php
 
-
 namespace NodesAndEdges;
 
 use InvalidArgumentException;
@@ -11,11 +10,14 @@ use InvalidArgumentException;
  */
 class Digraph extends Graph
 {
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $inDegree;
 
     /**
      * Digraph constructor.
+     *
      * @param int $vertices
      * @param array|null $adjacencyList
      */
@@ -34,9 +36,9 @@ class Digraph extends Graph
     public function addEdge(int $v, int $w)
     {
         // validate the vertex
-        static::validateVertex($v, $this->vertices);
+        Graph::validateVertex($v, $this->vertices);
         // validate the vertex
-        static::validateVertex($w, $this->vertices);
+        Graph::validateVertex($w, $this->vertices);
         // link the edge to v
         $this->adjacencyList[$v][] = $w;
         // increment the in-degree
@@ -49,14 +51,14 @@ class Digraph extends Graph
      * Returns the number of directed edges incident from vertex v
      * This is known as the out-degree of vertex v
      *
-     * @param  int $v the vertex
+     * @param int $v the vertex
      * @return int the out-degree of vertex v
      * @throws InvalidArgumentException unless 0 <= v < V
      */
     public function outDegree(int $v)
     {
         // validate
-        static::validateVertex($v, $this->getVertices());
+        Graph::validateVertex($v, $this->getVertices());
         // return the count
         return count($this->adjacencyList[$v]);
     }
@@ -65,14 +67,14 @@ class Digraph extends Graph
      * Returns the number of directed edges incident to vertex v
      * This is known as the in-degree of vertex v
      *
-     * @param  int $v the vertex
+     * @param int $v the vertex
      * @return int the in-degree of vertex v
      * @throws InvalidArgumentException unless 0 <= v < V
      */
     public function inDegree(int $v)
     {
         // validate it
-        static::validateVertex($v, $this->getVertices());
+        Graph::validateVertex($v, $this->getVertices());
         // return the count
         return $this->inDegree[$v];
     }
@@ -84,6 +86,7 @@ class Digraph extends Graph
      */
     public function reverse()
     {
+        // get set
         $vertices = $this->getVertices();
         // init
         $reverse = new Digraph($vertices);
@@ -148,22 +151,33 @@ class Digraph extends Graph
         }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
-            // read the line and parse
-            $edge = explode(' ', fgets($handle));
+            // fet from source
+            $raw = fgets($handle);
+            // clean
+            $trimmed = trim($raw);
+            // parse
+            $exploded = explode(' ', $trimmed);
+            // filter
+            $filtered = array_filter($exploded, function($v, $k) {
+                // make sure it valid
+                return (!empty($v) || (strlen($v) > 0));
+            }, ARRAY_FILTER_USE_BOTH);
+            // get values
+            $edge = array_values($filtered);
             // get v
             $v = (int)filter_var(
                 $edge[0],
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($v, $vertices);
+            Graph::validateVertex($v, $vertices);
             // get w
             $w = (int)filter_var(
                 $edge[1],
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($w, $vertices);
+            Graph::validateVertex($w, $vertices);
             // add it to the graph
             $graph->addEdge($v, $w);
         }
@@ -238,14 +252,19 @@ class Digraph extends Graph
         }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
-
+            // fet from source
             $raw = fgets($handle);
+            // clean
             $trimmed = trim($raw);
+            // parse
             $exploded = explode(' ', $trimmed);
-            $filtered2=array_filter($exploded, function($v, $k) {
+            // filter
+            $filtered = array_filter($exploded, function($v, $k) {
+                // make sure it valid
                 return (!empty($v) || (strlen($v) > 0));
             }, ARRAY_FILTER_USE_BOTH);
-            $values = array_values($filtered2);
+            // get values
+            $values = array_values($filtered);
             // get v
             $v = (int)filter_var(
                 $values[0],
@@ -258,9 +277,9 @@ class Digraph extends Graph
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($v, $vertices);
+            Graph::validateVertex($v, $vertices);
             // validate it
-            static::validateVertex($w, $vertices);
+            Graph::validateVertex($w, $vertices);
             // add to the graph
             $graph->addEdge($v, $w);
         }
@@ -307,15 +326,19 @@ class Digraph extends Graph
         }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
-            // read the line and parse
-            $edge = array_values(
-                array_filter(
-                    explode(
-                        ' ',
-                        trim($lines[$i+2])
-                    )
-                )
-            );
+            // fet from source
+            $raw = $lines[$i+2];
+            // clean
+            $trimmed = trim($raw);
+            // parse
+            $exploded = explode(' ', $trimmed);
+            // filter
+            $filtered = array_filter($exploded, function($v, $k) {
+                // make sure it valid
+                return (!empty($v) || (strlen($v) > 0));
+            }, ARRAY_FILTER_USE_BOTH);
+            // get values
+            $edge = array_values($filtered);
             // get v
             $v = (int)filter_var(
                 $edge[0],
@@ -327,14 +350,12 @@ class Digraph extends Graph
                 FILTER_SANITIZE_NUMBER_INT
             );
             // validate it
-            static::validateVertex($v, $vertices);
+            Graph::validateVertex($v, $vertices);
             // validate it
-            static::validateVertex($w, $vertices);
+            Graph::validateVertex($w, $vertices);
             // add to the graph
             $graph->addEdge($v, $w);
         }
-        // close the stream
-        fclose($handle);
         // return the built graph
         return $graph;
     }

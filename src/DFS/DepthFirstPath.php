@@ -1,9 +1,12 @@
 <?php
 
-namespace NodesAndEdges;
+namespace NodesAndEdges\DFS;
+
+use NodesAndEdges\Graph;
 
 /**
- * Class DepthFirstPaths
+ * Class DepthFirstPath
+ * @package NodesAndEdges\DFS
  */
 class DepthFirstPath
 {
@@ -28,13 +31,14 @@ class DepthFirstPath
     private $sourceVertex;
 
     /**
-     * @var Graph   $graph
-     * @var int     $sourceVertex
+     * DepthFirstPath constructor.
+     * @param Graph $graph
+     * @param int $sourceVertex
      */
     public function __construct(Graph $graph, int $sourceVertex)
     {
         // validate this vertex in the context of the given graph
-        UndirectedGraph::validateVertex($sourceVertex, $graph->getVertices());
+        Graph::validateVertex($sourceVertex, $graph->getVertices());
         // init
         $this->marked = array_fill(0, $graph->getVertices(), false);
         // set
@@ -48,7 +52,7 @@ class DepthFirstPath
     /**
      * Depth first search from $vertex
      *
-     * @var int     $vertex
+     * @param int $vertex
      */
     private function dfs(int $vertex)
     {
@@ -73,11 +77,10 @@ class DepthFirstPath
     public function hasPathTo(int $vertex)
     {
         // validate this vertex in the context of the given graph
-        UndirectedGraph::validateVertex($vertex, $this->graph->getVertices());
+        Graph::validateVertex($vertex, $this->graph->getVertices());
         // return 
         return $this->marked[$vertex];
     }
-
 
     /**
      * @param int $vertex
@@ -86,7 +89,7 @@ class DepthFirstPath
     public function pathTo(int $vertex)
     {
         // validate this vertex in the context of the given graph
-        UndirectedGraph::validateVertex($vertex, $this->graph->getVertices());
+        Graph::validateVertex($vertex, $this->graph->getVertices());
         // check if there is a path
         if (!$this->hasPathTo($vertex)) {
             // empty case
@@ -96,6 +99,7 @@ class DepthFirstPath
         $path = [];
         // pop into the stack
         for ($x = $vertex; $x != $this->sourceVertex; $x = $this->edgeTo[$x]) {
+            // pop into stack
             array_unshift($path, $x);
         }
         // pop the source into the stack

@@ -2,11 +2,11 @@
 
 namespace NodesAndEdges\Command;
 
+use Graphp\GraphViz\GraphViz;
 use Graphp\Graph\EdgeDirected as DirectedEdge;
 use Graphp\Graph\Graph as Grafh;
-use Graphp\GraphViz\GraphViz;
+use NodesAndEdges\DFS\DSCC;
 use NodesAndEdges\Digraph;
-use NodesAndEdges\DSCC;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -59,7 +59,6 @@ class StrongComponentsCommand extends Command
         $graphviz = new GraphViz();
         // init
         $components = [];
-
         // iterate over the amount of components
         for ($i = 0; $i < $n; $i++) {
             // placeholder for that comp
@@ -84,92 +83,117 @@ class StrongComponentsCommand extends Command
         }
         // start a new graph
         $grafh = new Grafh();
+        // init map
         $vertexMap = [];
         // iterate over the components
         foreach ($components as $id => $vertices) {
+            // get the label for the component
             $groupLabel = $groupLabels[$id];
+            // start adjacent components
             $adjacentComponents = [];
             // collect the set of vertices that these vertices connect to
             foreach ($vertices as $vertex) {
+                // get the neighbors
                 $neighbors = $graph->adjacent($vertex);
                 // iterate over the neighbors
                 foreach ($neighbors as $w) {
+                    // get the neihghbor component
                     $adjacentComponent = $dscc->id($w);
+                    // check for self
                     if ($adjacentComponent == $id) {
                         // ignore self loops
                         continue;
                     }
                     // find the corresponding component
                     if (!in_array($adjacentComponent, $adjacentComponents)) {
+                        // add to the list
                         $adjacentComponents[] = $adjacentComponent;
-                        // get v
+                        // check for existence
                         if (!empty($vertexMap[$groupLabel])) {
+                            // get it
                             $vertexV = $vertexMap[$groupLabel];
                         } else {
+                            // build it
                             $vertexV = $grafh->createVertex(['id' => $groupLabel]);
-                            // get v
-//                            $vertexV->setAttribute('graphviz.color', 'red');
+                            // set it
                             $vertexMap[$groupLabel] = $vertexV;
                         }
-
-                        // get w
+                        // get component label
                         $adjacentGroupLabel = $groupLabels[$adjacentComponent];
+                        // check if created already
                         if (!empty($vertexMap[$adjacentGroupLabel])) {
+                            // get it
                             $vertexW = $vertexMap[$adjacentGroupLabel];
                         } else {
+                            // build it
                             $vertexW = $grafh->createVertex(['id' => $adjacentGroupLabel]);
+                            // set it
                             $vertexMap[$adjacentGroupLabel] = $vertexW;
-//                            $vertexW->setAttribute('graphviz.color', 'red');
                         }
+                        /// check
                         if (!$vertexV->hasEdgeTo($vertexW)) {
+                            // add it
                             $edge = new DirectedEdge($vertexV, $vertexW);
-//                            $edge->setAttribute('graphviz.color', 'green');
                         }
 
                     }
                 }
             }
+            // print out here
             $output->writeln($groupLabel);
         }
+        // print here
         $output->writeln('Components Graph: ' . $graphviz->createImageFile($grafh));
+        // visual separation
         $output->writeln('');
-
+        // start visual map
         $grafh = new Grafh();
+        // start map
         $vertexMap = [];
+        // get vertices
         $vertices = $graph->getVertices();
+        // iterate over the vertices
         for ($vertex = 0; $vertex < $vertices; $vertex++) {
+            // get the component id
             $group = $dscc->id($vertex);
+            // get the component label
             $VGroupLabel = $groupLabels[$group];
+            // check if it has been built already
             if (!empty($vertexMap[$vertex])) {
-                $output->writeln('1fetching: ' . $vertex);
+                // get it
                 $vertexV = $vertexMap[$vertex];
             } else {
+                // build it
                 $vertexV = $grafh->createVertex(['id' => $vertex, 'group' => $VGroupLabel]);
+                // add it to the map
                 $vertexMap[$vertex] = $vertexV;
-//                $vertexV->setAttribute('graphviz.color', 'red');
             }
-            // get v
             // get the neighbors
             $neighbors = $graph->adjacent($vertex);
             // iterate over the set
             foreach ($neighbors as $w) {
+                // get the component id
                 $group = $dscc->id($w);
+                // get the component label
                 $WGroupLabel = $groupLabels[$group];
                 // get w
                 if (!empty($vertexMap[$w])) {
+                    // get it
                     $vertexW = $vertexMap[$w];
                 } else {
+                    // build it
                     $vertexW = $grafh->createVertex(['id' => $w, 'group' => $WGroupLabel]);
+                    // add it the map
                     $vertexMap[$WGroupLabel] = $vertexW;
-//                    $vertexW->setAttribute('graphviz.color', 'red');
                 }
-                //
+                // make sure it does not exist
                 if (!$vertexV->hasEdgeTo($vertexW)) {
+                    // add edge
                     $edge = new DirectedEdge($vertexV, $vertexW);
-//                    $edge->setAttribute('graphviz.color', 'green');
                 }
             }
         }
+        // build and print
         $output->writeln('Full Graph: ' . $graphviz->createImageFile($grafh));
         //  return success signal
         return 0;
