@@ -20,5 +20,8 @@ $application->add(new DFSPathCommand());
 $application->add(new BFSPathCommand());
 $application->add(new TopologicalOrderCommand());
 $application->add(new StrongComponentsCommand());
-$application->run();
+try {
+    $application->run();
+} catch (Exception $e) {
+}
 

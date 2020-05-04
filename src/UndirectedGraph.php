@@ -43,63 +43,28 @@ class UndirectedGraph extends Graph
         if (!$handle = fopen($file, 'r')) {
             throw new InvalidArgumentException('could not open stream');
         }
-        // read in the amount of vertices (an int) from the stream
-        $vertices = (int)filter_var(
-            fgets($handle),
-            FILTER_SANITIZE_NUMBER_INT
-        );
-        // sanity check
-        if ($vertices < 0) {
-            // bad state
-            throw new InvalidArgumentException(
-                'number of vertices in a Graph must be non-negative'
-            );
-        }
+        // fetch from stream
+        $first = fgets($handle);
+        // fetch from stream
+        $second = fgets($handle);
+        // parse V and E
+        list (
+            $vertices,
+            $edges
+        ) = self::parseGraphVEFromString($first, $second);
         // instantiate a new graph
         $graph = new UndirectedGraph($vertices);
-        // read in the amount of edges in the stream
-        $edges = (int)filter_var(
-            fgets($handle),
-            FILTER_SANITIZE_NUMBER_INT
-        );
-        // sanity check
-        if ($edges < 0) {
-            // bad state
-            throw new InvalidArgumentException(
-                'number of edges in a Graph must be non-negative'
-            );  
-        } 
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
             // fet from source
             $raw = fgets($handle);
-            // clean
-            $trimmed = trim($raw);
-            // parse
-            $exploded = explode(' ', $trimmed);
-            // filter
-            $filtered = array_filter($exploded, function($v, $k) {
-                // make sure it valid
-                return (!empty($v) || (strlen($v) > 0));
-            }, ARRAY_FILTER_USE_BOTH);
-            // get values
-            $edge = array_values($filtered);
-            // get v
-            $v = (int)filter_var(
-                $edge[0],
-                FILTER_SANITIZE_NUMBER_INT
-            );
-            // get w
-            $w = (int)filter_var(
-                $edge[1],
-                FILTER_SANITIZE_NUMBER_INT
-            );
-            // validate it
-            Graph::validateVertex($v, $vertices);
-            // validate it
-            Graph::validateVertex($w, $vertices);
+            // parse data
+            list (
+                $v,
+                $w
+            ) = self::parseEdge($raw, $vertices);
             // add to the graph
-            $graph->addEdge($v, $w); 
+            $graph->addEdge($v, $w);
         }
         // close the stream
         fclose($handle);
@@ -136,61 +101,22 @@ class UndirectedGraph extends Graph
     {
         // parse the lines
         $lines = explode("\n", $graph);
-        // open the stream for reading
-        $vertices = (int)filter_var(
-            $lines[0],
-            FILTER_SANITIZE_NUMBER_INT
-        );
-        // sanity check
-        if ($vertices < 0) {
-            // bad state
-            throw new InvalidArgumentException(
-                'number of vertices in a Graph must be non-negative'
-            );
-        }
+        // parse V and E
+        list (
+            $vertices,
+            $edges
+        ) = self::parseGraphVEFromString($lines[0], $lines[1]);
         // instantiate a new graph
         $graph = new UndirectedGraph($vertices);
-        // read in the amount of edges in the stream
-        $edges = (int)filter_var(
-            $lines[1],
-            FILTER_SANITIZE_NUMBER_INT
-        );
-        // sanity check
-        if ($edges < 0) {
-            // bad state
-            throw new InvalidArgumentException(
-                'number of edges in a Graph must be non-negative'
-            );
-        }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
             // fet from source
             $raw = $lines[$i+2];
-            // clean
-            $trimmed = trim($raw);
-            // parse
-            $exploded = explode(' ', $trimmed);
-            // filter
-            $filtered = array_filter($exploded, function($v, $k) {
-                // make sure it valid
-                return (!empty($v) || (strlen($v) > 0));
-            }, ARRAY_FILTER_USE_BOTH);
-            // get values
-            $edge = array_values($filtered);
-            // get v
-            $v = (int)filter_var(
-                $edge[0],
-                FILTER_SANITIZE_NUMBER_INT
-            );
-            // get w
-            $w = (int)filter_var(
-                $edge[1],
-                FILTER_SANITIZE_NUMBER_INT
-            );
-            // validate it
-            Graph::validateVertex($v, $vertices);
-            // validate it
-            Graph::validateVertex($w, $vertices);
+            // parse data
+            list (
+                $v,
+                $w
+            ) = self::parseEdge($raw, $vertices);
             // add to the graph
             $graph->addEdge($v, $w);
         }
@@ -204,61 +130,27 @@ class UndirectedGraph extends Graph
      */
     protected static function fromStream($handle)
     {
-        // read in the amount of vertices (an int) from the stream
-        $vertices = (int)filter_var(
-            fgets($handle),
-            FILTER_SANITIZE_NUMBER_INT
-        );
-        // sanity check
-        if ($vertices < 0) {
-            // bad state
-            throw new InvalidArgumentException(
-                'number of vertices in a Graph must be non-negative'
-            );
-        }
+
+        // fetch from stream
+        $first = fgets($handle);
+        // fetch from stream
+        $second = fgets($handle);
+        // parse V and E
+        list (
+            $vertices,
+            $edges
+        ) = self::parseGraphVEFromString($first, $second);
         // instantiate a new graph
         $graph = new UndirectedGraph($vertices);
-        // read in the amount of edges in the stream
-        $edges = (int)filter_var(
-            fgets($handle),
-            FILTER_SANITIZE_NUMBER_INT
-        );
-        // sanity check
-        if ($edges < 0) {
-            // bad state
-            throw new InvalidArgumentException(
-                'number of edges in a Graph must be non-negative'
-            );
-        }
         // read in the edges
         for ($i = 0; $i < $edges; $i++) {
             // fet from source
             $raw = fgets($handle);
-            // clean
-            $trimmed = trim($raw);
-            // parse
-            $exploded = explode(' ', $trimmed);
-            // filter
-            $filtered = array_filter($exploded, function($v, $k) {
-                // make sure it valid
-                return (!empty($v) || (strlen($v) > 0));
-            }, ARRAY_FILTER_USE_BOTH);
-            // get values
-            $edge = array_values($filtered);
-            // get v
-            $v = (int)filter_var(
-                $edge[0],
-                FILTER_SANITIZE_NUMBER_INT
-            );
-            // get w
-            $w = (int)filter_var(
-                $edge[1],
-                FILTER_SANITIZE_NUMBER_INT
-            );
-            // validate it
-            Graph::validateVertex($v, $vertices);
-            // validate it
-            Graph::validateVertex($w, $vertices);
+            // parse data
+            list (
+                $v,
+                $w
+            ) = self::parseEdge($raw, $vertices);
             // add to the graph
             $graph->addEdge($v, $w);
         }
