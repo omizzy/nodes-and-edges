@@ -211,7 +211,7 @@ class BreadthFirstPaths
                     // check failed
                     return false;
                 }
-                // check dists
+                // check distances
                 if ($this->hasPathTo($vertex) && ($this->distTo[$w] > $this->distTo[$vertex] + 1)) {
                     // check failed
                     return false;
@@ -227,7 +227,7 @@ class BreadthFirstPaths
             }
             // set
             $v = $this->edgeTo[$w];
-            // check dists
+            // check distances
             if ($this->distTo[$w] != $this->distTo[$v] + 1) {
                 // check failed
                 return false;
