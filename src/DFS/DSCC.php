@@ -2,6 +2,7 @@
 
 namespace NodesAndEdges\DFS;
 
+use NodesAndEdges\Digraph;
 use NodesAndEdges\Graph;
 
 /**
@@ -16,9 +17,9 @@ class DSCC extends ConnectedComponent
     /**
      * Computes the connected components of the undirected graph g.
      *
-     * @param Graph $g the graph
+     * @param Digraph $g the graph
      */
-    public function __construct(Graph $g)
+    public function __construct(Digraph $g)
     {
         // init
         $this->count = 0;

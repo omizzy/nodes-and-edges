@@ -43,7 +43,6 @@ class EdgeWeightedGraph extends Graph
         // iterate over the set of vertices
         for ($vertex = 0; $vertex < $this->getVertices(); $vertex++) {
             // init
-            $selfLoops = 0;
             /** @var array $neighbors */
             $neighbors = $this->adjacencyList[$vertex];
             // iterate over the set of neighbors
