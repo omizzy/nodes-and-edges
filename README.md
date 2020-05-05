@@ -6,10 +6,10 @@ https://algs4.cs.princeton.edu/40graphs/
 Example usage:
 
 ```php
-
 use NodesAndEdges\BFS\BreadthFirstPaths;
+use NodesAndEdges\UndirectedGraph;
 
-public function bfsPaths(string $file, int $sourceVertex)
+function bfsPaths(string $file, int $sourceVertex)
 {  
     // build the graph
     $graph = UndirectedGraph::fromFile($file);
@@ -26,8 +26,9 @@ public function bfsPaths(string $file, int $sourceVertex)
                 $vertex,
                 $bfs->distTo($vertex)
             );
-
+            // iterate over the path
             foreach ($bfs->pathTo($vertex) as $x) {
+                // check for self
                 if ($x == $sourceVertex) {
                     print $x;
                 } else {
@@ -35,7 +36,6 @@ public function bfsPaths(string $file, int $sourceVertex)
                 }
             }
             print PHP_EOL;
-
 
         } else {
             print sprintf(
