@@ -3,9 +3,4 @@ vendor/*
 sample_data/*
 composer.lock
 out/*
-.idea/vcs.xml
-.idea/php.xml
-.idea/nodes-and-edges.iml
-.idea/modules.xml
-.idea/misc.xml
-.idea/dictionaries/oz.xml
+.idea/
