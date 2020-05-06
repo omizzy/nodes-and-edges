@@ -102,7 +102,7 @@ class Edge
     /**
      * Compares two edges by weight.
      *
-     * @param  Edge the other edge
+     * @param Edge $that the other edge
      * @return int a negative integer, zero, or positive integer depending on whether
      *  the weight of this is less than, equal to, or greater than the
      *  argument edge

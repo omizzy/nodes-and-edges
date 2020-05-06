@@ -167,10 +167,10 @@ abstract class Graph
         // parse
         $exploded = explode(' ', $trimmed);
         // filter
-        $filtered = array_filter($exploded, function($v, $k) {
+        $filtered = array_filter($exploded, function($vertex) {
             // make sure it valid
-            return (!empty($v) || (strlen($v) > 0));
-        }, ARRAY_FILTER_USE_BOTH);
+            return (!empty($vertex) || (strlen($vertex) > 0));
+        });
         // get values
         $edge = array_values($filtered);
         // get v
