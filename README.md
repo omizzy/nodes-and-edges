@@ -9,6 +9,7 @@ https://algs4.cs.princeton.edu/40graphs/
 
 [![Code Coverage](https://scrutinizer-ci.com/g/templesofcode/nodes-and-edges/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/templesofcode/nodes-and-edges/?branch=master)
 
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/templesofcode/nodes-and-edges/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 Example usage:
 
 ```php
