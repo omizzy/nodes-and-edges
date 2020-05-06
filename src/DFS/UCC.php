@@ -1,10 +1,10 @@
 <?php
 
-namespace NodesAndEdges\DFS;
+namespace TemplesOfCode\NodesAndEdges\DFS;
 
 /**
  * Class UCC
- * @package NodesAndEdges\DFS
+ * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\DFS
  */
 class UCC extends ConnectedComponent
 {

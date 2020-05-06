@@ -1,12 +1,12 @@
 <?php
 
-namespace NodesAndEdges;
+namespace TemplesOfCOde\NodesAndEdges;
 
 use InvalidArgumentException;
 
 /**
  * Class Digraph
- * @package NodesAndEdges
+ * @package TemplesOfCOde\NodesAndEdges
  */
 class Digraph extends Graph
 {

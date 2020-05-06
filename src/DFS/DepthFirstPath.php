@@ -1,12 +1,12 @@
 <?php
 
-namespace NodesAndEdges\DFS;
+namespace TemplesOfCode\NodesAndEdges\DFS;
 
-use NodesAndEdges\Graph;
+use TemplesOfCOde\NodesAndEdges\Graph;
 
 /**
  * Class DepthFirstPath
- * @package NodesAndEdges\DFS
+ * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\DFS
  */
 class DepthFirstPath
 {

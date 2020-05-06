@@ -1,13 +1,13 @@
 <?php
 
-namespace NodesAndEdges\DFS;
+namespace TemplesOfCode\NodesAndEdges\DFS;
 
 use InvalidArgumentException;
-use NodesAndEdges\Graph;
+use TemplesOfCOde\NodesAndEdges\Graph;
 
 /**
  * Class DepthFirstSearch
- * @package NodesAndEdges\DFS
+ * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\DFS
  */
 class DepthFirstSearch
 {

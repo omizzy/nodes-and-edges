@@ -1,13 +1,13 @@
 <?php
 
 
-namespace NodesAndEdges\DFS;
+namespace TemplesOfCode\NodesAndEdges\DFS;
 
-use NodesAndEdges\Graph;
+use TemplesOfCOde\NodesAndEdges\Graph;
 
 /**
  * Class DepthFirstOrder
- * @package NodesAndEdges
+ * @package TemplesOfCOde\NodesAndEdges
  */
 class DepthFirstOrder
 {

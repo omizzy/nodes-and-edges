@@ -1,12 +1,12 @@
 <?php
 
-namespace NodesAndEdges\DFS;
+namespace TemplesOfCode\NodesAndEdges\DFS;
 
-use NodesAndEdges\Edge;
+use TemplesOfCOde\NodesAndEdges\Edge;
 
 /**
  * Class EWDCC
- * @package NodesAndEdges
+ * @package TemplesOfCOde\NodesAndEdges
  */
 class EWDCC extends ConnectedComponent
 {
