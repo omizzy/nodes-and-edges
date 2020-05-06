@@ -6,8 +6,8 @@ https://algs4.cs.princeton.edu/40graphs/
 Example usage:
 
 ```php
-use TemplesOfCode\TemplesOfCOde\NodesAndEdges\BFS\BreadthFirstPaths;
-use TemplesOfCOde\NodesAndEdges\UndirectedGraph;
+use TemplesOfCode\NodesAndEdges\BFS\BreadthFirstPaths;
+use TemplesOfCode\NodesAndEdges\UndirectedGraph;
 
 function bfsPaths(string $file, int $sourceVertex)
 {  

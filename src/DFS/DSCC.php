@@ -2,15 +2,15 @@
 
 namespace TemplesOfCode\NodesAndEdges\DFS;
 
-use TemplesOfCOde\NodesAndEdges\Digraph;
-use TemplesOfCOde\NodesAndEdges\Graph;
+use TemplesOfCode\NodesAndEdges\Digraph;
+use TemplesOfCode\NodesAndEdges\Graph;
 
 /**
  * Class DSCC
  *
  * API for Directed Graph Strongly Connected Components
  *
- * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\DFS
+ * @package TemplesOfCode\NodesAndEdges\DFS
  */
 class DSCC extends ConnectedComponent
 {

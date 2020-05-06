@@ -3,7 +3,7 @@
 namespace TemplesOfCode\NodesAndEdges\DFS;
 
 use InvalidArgumentException;
-use TemplesOfCOde\NodesAndEdges\Graph;
+use TemplesOfCode\NodesAndEdges\Graph;
 
 
 /**
@@ -11,7 +11,7 @@ use TemplesOfCOde\NodesAndEdges\Graph;
  *
  * Extracts topological order from a digraph
  *
- * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\DFS
+ * @package TemplesOfCode\NodesAndEdges\DFS
  */
 class TopologicalOrder
 {

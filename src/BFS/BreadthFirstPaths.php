@@ -2,11 +2,11 @@
 
 namespace TemplesOfCode\NodesAndEdges\BFS;
 
-use TemplesOfCOde\NodesAndEdges\Graph;
+use TemplesOfCode\NodesAndEdges\Graph;
 
 /**
  * Class BreadthFirstPaths
- * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\BFS
+ * @package TemplesOfCode\NodesAndEdges\BFS
  */
 class BreadthFirstPaths
 {

@@ -4,7 +4,7 @@ namespace TemplesOfCode\NodesAndEdges\DFS;
 
 /**
  * Class UCC
- * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\DFS
+ * @package TemplesOfCode\NodesAndEdges\DFS
  */
 class UCC extends ConnectedComponent
 {

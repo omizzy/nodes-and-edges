@@ -3,11 +3,11 @@
 
 namespace TemplesOfCode\NodesAndEdges\DFS;
 
-use TemplesOfCOde\NodesAndEdges\Graph;
+use TemplesOfCode\NodesAndEdges\Graph;
 
 /**
  * Class DepthFirstOrder
- * @package TemplesOfCOde\NodesAndEdges
+ * @package TemplesOfCode\NodesAndEdges
  */
 class DepthFirstOrder
 {

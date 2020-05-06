@@ -2,11 +2,11 @@
 
 namespace TemplesOfCode\NodesAndEdges\DFS;
 
-use TemplesOfCOde\NodesAndEdges\Graph;
+use TemplesOfCode\NodesAndEdges\Graph;
 
 /**
  * Class DirectedCycle
- * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\DFS
+ * @package TemplesOfCode\NodesAndEdges\DFS
  */
 class DirectedCycle extends ConnectedComponent
 {

@@ -2,11 +2,11 @@
 
 namespace TemplesOfCode\NodesAndEdges\DFS;
 
-use TemplesOfCOde\NodesAndEdges\Edge;
+use TemplesOfCode\NodesAndEdges\Edge;
 
 /**
  * Class EWDCC
- * @package TemplesOfCOde\NodesAndEdges
+ * @package TemplesOfCode\NodesAndEdges
  */
 class EWDCC extends ConnectedComponent
 {

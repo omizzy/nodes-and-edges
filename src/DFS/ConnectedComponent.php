@@ -3,11 +3,11 @@
 namespace TemplesOfCode\NodesAndEdges\DFS;
 
 use InvalidArgumentException;
-use TemplesOfCOde\NodesAndEdges\Graph;
+use TemplesOfCode\NodesAndEdges\Graph;
 
 /**
  * Class ConnectedComponent
- * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\DFS
+ * @package TemplesOfCode\NodesAndEdges\DFS
  */
 abstract class ConnectedComponent
 {
