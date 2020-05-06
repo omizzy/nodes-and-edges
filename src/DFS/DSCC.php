@@ -1,16 +1,16 @@
 <?php
 
-namespace NodesAndEdges\DFS;
+namespace TemplesOfCode\NodesAndEdges\DFS;
 
-use NodesAndEdges\Digraph;
-use NodesAndEdges\Graph;
+use TemplesOfCOde\NodesAndEdges\Digraph;
+use TemplesOfCOde\NodesAndEdges\Graph;
 
 /**
  * Class DSCC
  *
  * API for Directed Graph Strongly Connected Components
  *
- * @package NodesAndEdges\DFS
+ * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\DFS
  */
 class DSCC extends ConnectedComponent
 {

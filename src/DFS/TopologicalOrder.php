@@ -1,9 +1,9 @@
 <?php
 
-namespace NodesAndEdges\DFS;
+namespace TemplesOfCode\NodesAndEdges\DFS;
 
 use InvalidArgumentException;
-use NodesAndEdges\Graph;
+use TemplesOfCOde\NodesAndEdges\Graph;
 
 
 /**
@@ -11,7 +11,7 @@ use NodesAndEdges\Graph;
  *
  * Extracts topological order from a digraph
  *
- * @package NodesAndEdges\DFS
+ * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\DFS
  */
 class TopologicalOrder
 {

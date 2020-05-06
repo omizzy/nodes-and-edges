@@ -1,10 +1,10 @@
 <?php
 
-namespace NodesAndEdges;
+namespace TemplesOfCOde\NodesAndEdges;
 
 /**
  * Class GraphClient
- * @package NodesAndEdges
+ * @package TemplesOfCOde\NodesAndEdges
  */
 class GraphClient
 {

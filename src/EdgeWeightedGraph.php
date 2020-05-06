@@ -1,12 +1,12 @@
 <?php
 
-namespace NodesAndEdges;
+namespace TemplesOfCOde\NodesAndEdges;
 
 use InvalidArgumentException;
 
 /**
  * Class EdgeWeightedGraph
- * @package NodesAndEdges
+ * @package TemplesOfCOde\NodesAndEdges
  */
 class EdgeWeightedGraph extends Graph
 {

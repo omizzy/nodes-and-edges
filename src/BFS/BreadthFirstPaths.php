@@ -1,12 +1,12 @@
 <?php
 
-namespace NodesAndEdges\BFS;
+namespace TemplesOfCode\NodesAndEdges\BFS;
 
-use NodesAndEdges\Graph;
+use TemplesOfCOde\NodesAndEdges\Graph;
 
 /**
  * Class BreadthFirstPaths
- * @package NodesAndEdges\BFS
+ * @package TemplesOfCode\TemplesOfCOde\NodesAndEdges\BFS
  */
 class BreadthFirstPaths
 {

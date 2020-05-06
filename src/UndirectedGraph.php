@@ -1,12 +1,12 @@
 <?php
 
-namespace NodesAndEdges;
+namespace TemplesOfCOde\NodesAndEdges;
 
 use InvalidArgumentException;
 
 /**
  * Class UndirectedGraph
- * @package NodesAndEdges
+ * @package TemplesOfCOde\NodesAndEdges
  */
 class UndirectedGraph extends Graph
 {
