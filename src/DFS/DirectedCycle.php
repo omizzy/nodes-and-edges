@@ -17,7 +17,7 @@ class DirectedCycle extends ConnectedComponent
     protected $onStack;
 
     /**
-     * @var null
+     * @var array
      */
     protected $cycle;
 
