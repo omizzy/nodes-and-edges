@@ -1,6 +1,20 @@
 {
     "name": "templesofcode/nodes-and-edges",
     "description": "Node-edge graphs tools",
+    "type": "library",
+    "description": "PHP algorithm implementations",
+    "keywords": ["php","alogorithms"],
+    "homepage": "https://github.com/templesofcode/nodes-and-edges",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "TOC",
+            "email": "templesofcode@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.*"
+    },
     "autoload": {
 
         "psr-4": {"TemplesOfCode\\NodesAndEdges\\": "src/"}
