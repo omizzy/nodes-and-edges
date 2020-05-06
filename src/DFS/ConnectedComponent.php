@@ -21,7 +21,7 @@ abstract class ConnectedComponent
     /**
      * marked[v] = has vertex v been marked?
      *
-     * @var int[]
+     * @var bool[]
      */
     protected $marked;
 
@@ -124,7 +124,7 @@ abstract class ConnectedComponent
      *
      * @param  int $v one vertex
      * @param  int $w the other vertex
-     * @return true if vertices v and w are in the same
+     * @return bool true if vertices v and w are in the same
      *         connected component; false otherwise
      * @throws InvalidArgumentException unless 0 <= v < V
      * @throws InvalidArgumentException unless  0 <= w < V
