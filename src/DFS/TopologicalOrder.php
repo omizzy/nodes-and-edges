@@ -18,7 +18,7 @@ class TopologicalOrder
     /**
      * rank[v] = rank of vertex v in order
      *
-     * @var []
+     * @var array
      */
     private $rank;
 
@@ -80,7 +80,7 @@ class TopologicalOrder
     /**
      * Does the digraph have a topological order?
      *
-     * @return true if the digraph has a topological order (or equivalently,
+     * @return bool true if the digraph has a topological order (or equivalently,
      *    if the digraph is a DAG), and false otherwise
      */
     public function hasOrder()
