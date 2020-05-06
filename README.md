@@ -3,6 +3,12 @@ A php partial-port of the library described in
 
 https://algs4.cs.princeton.edu/40graphs/ 
 
+[![Build Status](https://travis-ci.org/templesofcode/codesanity.svg?branch=master)](https://travis-ci.org/templesofcode/nodes-and-edges)
+
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/templesofcode/nodes-and-edges/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/templesofcode/nodes-and-edges/?branch=master)
+
+[![Code Coverage](https://scrutinizer-ci.com/g/templesofcode/nodes-and-edges/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/templesofcode/nodes-and-edges/?branch=master)
+
 Example usage:
 
 ```php
