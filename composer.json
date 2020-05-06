@@ -1,6 +1,5 @@
 {
     "name": "templesofcode/nodes-and-edges",
-    "description": "Node-edge graphs tools",
     "type": "library",
     "description": "PHP algorithm implementations",
     "keywords": ["php","algorithms"],
