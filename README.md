@@ -55,3 +55,5 @@ function bfsPaths(string $file, int $sourceVertex)
     }
 }
 ```
+
+See https://github.com/templesofcode/nodes-edges-commander for some additional example usage
